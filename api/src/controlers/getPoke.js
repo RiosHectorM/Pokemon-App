@@ -1,6 +1,6 @@
-const { default: axios } = require('axios');
+const axios = require('axios');
 
-const getPokeID = async (idPokemon) => {
+const getPoke = async (idPokemon) => {
   try {
     let pokemonByID = await axios(
       `https://pokeapi.co/api/v2/pokemon/${idPokemon}/`
@@ -24,7 +24,6 @@ const getPokeID = async (idPokemon) => {
     return { error: 'Pokemon NO EXISTE' };
   }
 };
-
 module.exports = {
-  getPokeID,
+  getPoke,
 };
