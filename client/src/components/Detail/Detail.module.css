@@ -1,0 +1,39 @@
+.containerMain {
+  display: flex;
+  flex-direction: column;
+  background: red;
+  width: 100vw;
+  height: 100vh;
+}
+
+.containerSup {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: blue;
+  justify-content: space-between;
+}
+
+.containerInf {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: violet;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.nameAndTypes{
+  background: black;
+  text-transform: uppercase;
+  padding: 30px 80px;
+  border-radius: 50px 0 0 50px;
+  color: white;
+
+  
+}
+
+.containerTypes{
+  display: flex;
+  justify-content: space-around;
+}
