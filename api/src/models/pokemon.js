@@ -10,14 +10,11 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
-        unique: true,
         defaultValue: DataTypes.UUIDV4,
       },
       idPoke: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
+        unique: true,
       },
       name: {
         type: DataTypes.STRING,

@@ -1,25 +1,32 @@
 import React from 'react';
-import { TYPES } from '../constants/types';
+import { TYPES } from '../../constants/types.js';
 import { Link } from 'react-router-dom';
+import styles from './Card.module.css';
 
-export default function Card({ pokemon }) {
+export default function Card({ id, name, image, types }) {
   return (
-    <div
-      className='card'
-      style={{ background: TYPES[pokemon.types[0].type.name] }}
-    >
-      <div className='info'>
-        <h3>{pokemon.name}</h3>
-        <h3>{pokemon.types[0].type.name}</h3>
+      <div
+        className={styles.card}
+         style={{ background: TYPES[types[0]?.name] }}
+      >
+        <div className={styles.info}>
+          <h3>{name}</h3>
+          <h3>
+            {types[0]?.name}
+            {types[1]?.name}
+          </h3>
+        </div>
+      
+        <Link to={`/pokemons/${id}`}>
+          {image ? (
+            <img
+              src={image}
+              alt='pokemon'
+              className={styles.imgPoke}
+              loading='lazy'
+            />
+          ) : null}
+        </Link>
       </div>
-      <Link to={`/detail/${pokemon.id}`}>
-        <img
-          src={pokemon.sprites.other.home.front_default}
-          alt='pokemon'
-          className='imgPoke'
-          loading='lazy'
-        />
-      </Link>
-    </div>
   );
 }

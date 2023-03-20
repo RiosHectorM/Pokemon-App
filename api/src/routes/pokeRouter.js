@@ -1,27 +1,134 @@
 const { Router } = require('express');
-//const { Pokemon, Type } = require('../db.js');
+const { Pokemon, Type } = require('../db.js');
 const { getPokeApi } = require('../controlers/getApiData.js');
 const { getPoke } = require('../controlers/getPoke.js');
+const { getDBData } = require('../controlers/getDBData.js');
 
 const router = Router();
 
+const searchBDbyId = async (id) => {
+  let pokeName = await Pokemon.findOne({
+    where: { id: id },
+    include: {
+      model: Type,
+      attributes: ['name'],
+      through: { attributes: [] },
+    },
+  });
+
+  if (pokeName) return pokeName;
+  return null;
+};
+
+const searchBD = async (name) => {
+  let pokeName = await Pokemon.findOne({
+    where: { name: name },
+    include: {
+      model: Type,
+      attributes: ['name'],
+      through: { attributes: [] },
+    },
+  });
+
+  if (pokeName) return pokeName;
+  return null;
+};
+
 router.get('/', async (req, res) => {
-  const { name } = req.query;
+  let { name } = req.query;
   if (name) {
-    const pokeForName = await getPoke(name.toLowerCase());
-    res.send(pokeForName);
+    try {
+      name = name.toLowerCase();
+      let pokeForParams = await getPoke(name);
+      if (pokeForParams.length === 0) {
+        pokeForParams = await searchBD(name);
+      }
+      res.status(200).send([pokeForParams]);
+    } catch (error) {
+      res.status(400).send([]);
+    }
   } else {
-    const pokeArray = await getPokeApi();
-    res.send(pokeArray);
+    let allPokeApi = await getPokeApi();
+    let allPokeBD = await getDBData();
+    let allPoke = allPokeBD.concat(allPokeApi);
+    res.status(200).send(allPoke);
   }
 });
 
 router.get('/:idPokemon', async (req, res) => {
-  const { idPokemon } = req.params;
-  const pokeForId = await getPoke(idPokemon);
-  res.send(pokeForId);
+  try {
+    const { idPokemon } = req.params;
+    let pokeForId = await getPoke(idPokemon);
+
+    if (pokeForId.error) {
+      pokeForId = await searchBDbyId(idPokemon);
+      console.log(pokeForId);
+    }
+    
+    res.status(200).json(pokeForId);
+  } catch (error) {
+    res.status(400).send({
+      error: `Pokemon not found`,
+    });
+  }
 });
 
-router.post('/')
+router.post('/', async (req, res) => {
+  const {
+    idPoke,
+    name,
+    hp,
+    attack,
+    defense,
+    speed,
+    height,
+    weight,
+    image,
+    types,
+  } = req.body;
+
+  //Valida valores * requeridos
+  if (!name || !hp || !attack || !defense || !image) {
+    return res.status(400).json({
+      error: `Missing Values!`,
+    });
+  }
+
+  //Valida que al menos el pokemon creado tenga un tipo seleccionado
+  let arrType = [];
+  types.map((e) => arrType.push(e));
+  if (!arrType.length) {
+    return res.status(400).json({ error: `Select Type of Pokemon` });
+  }
+
+  //Valida que no exista un pokemon personalizado con el mismo nombre
+  const exists = await Pokemon.findOne({ where: { name: name } });
+  if (exists)
+    return res.status(400).send({ error: `Pokemon ${name} already exists` });
+
+  //superadas las validaciones crea el nuevo pokemon personalizado
+  try {
+    const newPoke = await Pokemon.create({
+      idPoke: idPoke,
+      name: name,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      speed: speed,
+      height: height,
+      weight: weight,
+      image: image,
+    });
+
+    types.map(async (t) => {
+      typePoke = await Type.findAll({ where: { name: t } });
+      newPoke.addType(typePoke, { timestamps: false });
+    });
+
+    res.status(201).send(newPoke);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = router;

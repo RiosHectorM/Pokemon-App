@@ -1,4 +1,3 @@
-const { Pokemon, Types } = require('../db');
 const axios = require('axios');
 
 const pokeLoad = async (url) => {
@@ -33,7 +32,7 @@ const getPokeApi = async () => {
     const pokemons = pokeArray.map(async (poke) => {
       const pokeData = await axios(poke.url).then((pokeData) => {
         const pokemon = {
-          idPoke: pokeData.data.id,
+          id: pokeData.data.id,
           name: pokeData.data.name,
           image: pokeData.data.sprites.other.home.front_default,
           // hp: pokeData.data.stats[0].base_stat,
@@ -42,7 +41,7 @@ const getPokeApi = async () => {
           // speed: pokeData.data.stats[5].base_stat,
           // height: pokeData.data.stats[5].base_stat,
           // weight: pokeData.data.stats[5].base_stat,
-          types: pokeData.data.types?.map((p) => p.type.name),
+          types: pokeData.data.types?.map((p) => ({ name : p.type.name })),
         };
         return pokemon;
       });

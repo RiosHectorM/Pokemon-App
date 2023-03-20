@@ -1,12 +1,12 @@
 const axios = require('axios');
 
-const getPoke = async (idPokemon) => {
+const getPoke = async (Pokemon) => {
   try {
-    let pokemonByID = await axios(
-      `https://pokeapi.co/api/v2/pokemon/${idPokemon}/`
+    let pokemonByParam = await axios(
+      `https://pokeapi.co/api/v2/pokemon/${Pokemon}/`
     ).then((poke) => {
       const pokemon = {
-        idPoke: poke.data.id,
+        id: poke.data.id,
         name: poke.data.name,
         image: poke.data.sprites.other.home.front_default,
         hp: poke.data.stats[0].base_stat,
@@ -15,13 +15,14 @@ const getPoke = async (idPokemon) => {
         speed: poke.data.stats[5].base_stat,
         height: poke.data.stats[5].base_stat,
         weight: poke.data.stats[5].base_stat,
-        types: poke.data.types?.map((p) => p.type.name),
+        types: poke.data.types?.map((p) => ({ name: p.type.name })),
       };
       return pokemon;
     });
-    return pokemonByID;
+
+    return pokemonByParam;
   } catch (error) {
-    return { error: 'Pokemon NO EXISTE' };
+    return [];
   }
 };
 module.exports = {

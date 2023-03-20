@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { Type } = require('../db.js');
 
 const getTypes = async () => {
   try {
@@ -6,6 +7,13 @@ const getTypes = async () => {
       let arrayTypes = type.data.results;
       arrayTypes = arrayTypes.map((t) => t.name);
       return arrayTypes;
+    });
+    types.forEach((type) => {
+      Type.findOrCreate({
+        where: {
+          name: type,
+        },
+      });
     });
     return types;
   } catch (error) {
