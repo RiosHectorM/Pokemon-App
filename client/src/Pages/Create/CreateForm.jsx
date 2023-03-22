@@ -55,7 +55,7 @@ const Create = () => {
       height: 0,
       weight: 0,
     });
-    alert('Freshly cooked Pokemon! (っ^◡^)っ ♥');
+    alert('POKEMON CREATED');
     redirect('/pokemons');
   };
 

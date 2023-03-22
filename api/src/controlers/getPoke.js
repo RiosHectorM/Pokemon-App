@@ -13,8 +13,8 @@ const getPoke = async (Pokemon) => {
         attack: poke.data.stats[1].base_stat,
         defense: poke.data.stats[2].base_stat,
         speed: poke.data.stats[5].base_stat,
-        height: poke.data.stats[5].base_stat,
-        weight: poke.data.stats[5].base_stat,
+        height: poke.data.height,
+        weight: poke.data.weight,
         types: poke.data.types?.map((p) => ({ name: p.type.name })),
       };
       return pokemon;
