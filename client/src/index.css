@@ -1,8 +1,17 @@
+@font-face {
+  font-family: pokeFont;
+  src: url("./assets/font/pokemon.ttf")
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: pokeFont;
+  letter-spacing: 4px;
 }
+
+
 body {
   display: flex;
   justify-content: center;

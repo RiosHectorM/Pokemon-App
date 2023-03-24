@@ -6,6 +6,8 @@ import Card from '../../components/Card/Card.jsx';
 import styles from './Home.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import Loader from '../../components/Loader/Loader.jsx';
+import Pagination from '../../components/Pagination/Pagination.jsx';
+import Filters from '../../components/Filters/Filters.jsx';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +17,13 @@ const Home = () => {
   useEffect(() => {
     setAllPokemons(allPokes);
   }, [allPokes, allPokemons]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const pokemonsPerPage = 12;
+  const lastPokemon = currentPage * pokemonsPerPage;
+  const firstPokemon = lastPokemon - pokemonsPerPage;
+  const currentPokemons = allPokemons.slice(firstPokemon, lastPokemon);
+  const paginated = (pageNumber) => setCurrentPage(pageNumber);
 
   let [loaderr, setLoader] = useState(
     allPokemons[0]?.hasOwnProperty('id') ? true : false
@@ -26,18 +35,16 @@ const Home = () => {
     }
   }, [loaderr, dispatch]);
 
-  console.log(allPokemons);
-
-  console.log(allPokemons.length);
-  console.log('loaderr');
-  console.log(loaderr);
   return (
     <div className={styles.containerBody}>
-      <SearchBar />
+      <div className={styles.containerOptions}>
+          <SearchBar setCurrentPage={setCurrentPage} />
+          <Filters setCurrentPage={setCurrentPage} />
+      </div>
       <div className={styles.cardContainer}>
-        {allPokemons.length ? (
-          allPokemons[0]?.hasOwnProperty('id') ? (
-            allPokemons.map((pokemon) => (
+        {currentPokemons.length ? (
+          currentPokemons[0]?.hasOwnProperty('id') ? (
+            currentPokemons.map((pokemon) => (
               <Card
                 key={pokemon.id}
                 id={pokemon.id}
@@ -53,6 +60,11 @@ const Home = () => {
           <Loader />
         )}
       </div>
+      <Pagination
+        pokemonsPerPage={pokemonsPerPage}
+        allPokemons={allPokemons.length}
+        paginated={paginated}
+      />
     </div>
   );
 };

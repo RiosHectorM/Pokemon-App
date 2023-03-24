@@ -4,8 +4,11 @@ import {
   SEARCH_POKEMON,
   GET_TYPES,
   POST_POKEMON,
-  FILTER,
+  FILTER_TYPES,
+  RESTORE_POKEMONS,
   ORDER,
+  FILTER_CREATES,
+  ORDER_NAME,
 } from './types.js';
 
 export const getAllPokemons = () => {
@@ -58,6 +61,7 @@ export const postPokemon = (values) => {
     speed: values.speed,
     height: values.height,
     weight: values.weight,
+    created: true,
   };
   return async function (dispatch) {
     return fetch('http://localhost:3001/pokemons', {
@@ -80,7 +84,6 @@ export const searchByName = (name) => {
     return fetch(`http://localhost:3001/pokemons?name=${name}`)
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         dispatch({
           type: SEARCH_POKEMON,
           payload: json,
@@ -89,30 +92,29 @@ export const searchByName = (name) => {
   };
 };
 
-// export function filterCards(status) {
-//   return {
-//     type: FILTER,
-//     payload: status,
-//   };
-// }
+export const filterByTypes = (value) => {
+  return {
+    type: FILTER_TYPES,
+    payload: value,
+  };
+};
 
-// export function orderCards(id) {
-//   return {
-//     type: ORDER,
-//     payload: id,
-//   };
-// }
+export const restorePokemons = (value) => {
+  return {
+    type: RESTORE_POKEMONS,
+    payload: value,
+  };
+};
+export const filterPokeCreated = (value) => {
+  return {
+    type: FILTER_CREATES,
+    payload: value,
+  };
+};
 
-// export const deleteFavorite = (id) => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await axios.delete(
-//         `https://rick-and-morty-production-f7fc.up.railway.app/rickandmorty/fav/${id}`
-//       );
-//       console.log(response); // Agregado para verificar la respuesta del backend
-//       dispatch({ type: DELETE_FAVORITE, payload: id });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-// };
+export const orderName = (value) => {
+  return {
+    type: ORDER_NAME,
+    payload: value,
+  };
+};

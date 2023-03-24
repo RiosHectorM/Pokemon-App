@@ -21,7 +21,6 @@ const Details = () => {
 
   useEffect(() => {
     if (pokemon.types) {
-      console.log(TYPES[pokemon?.types[0]?.name]);
       setFondo({ background: TYPES[pokemon.types[0].name] });
     }
   }, [pokemon.types]);

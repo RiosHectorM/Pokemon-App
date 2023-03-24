@@ -19,6 +19,7 @@ const getDBData = async () => {
       // speed: pokeData.data.stats[5].base_stat,
       // height: pokeData.data.stats[5].base_stat,
       // weight: pokeData.data.stats[5].base_stat,
+      created: poke.created,
       types: poke.types,
     };
     return pokemon;

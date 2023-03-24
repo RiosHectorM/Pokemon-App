@@ -8,6 +8,11 @@
   height: 100%;
 }
 
+.containerOptions{
+  display: flex;
+  justify-content: space-around;
+}
+
 /* Contenedor de Cards */
 .cardContainer {
   display: flex;

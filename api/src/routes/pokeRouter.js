@@ -62,7 +62,6 @@ router.get('/:idPokemon', async (req, res) => {
 
     if (pokeForId.error) {
       pokeForId = await searchBDbyId(idPokemon);
-      console.log(pokeForId);
     }
 
     res.status(200).json(pokeForId);
@@ -73,7 +72,6 @@ router.get('/:idPokemon', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const {
-    idPoke,
     name,
     hp,
     attack,
@@ -107,7 +105,6 @@ router.post('/', async (req, res) => {
   //superadas las validaciones crea el nuevo pokemon personalizado
   try {
     const newPoke = await Pokemon.create({
-      idPoke: idPoke,
       name: name,
       hp: hp,
       attack: attack,

@@ -1,8 +1,7 @@
 .container {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
-  height: 50px;
   background: rgb(255, 0, 0);
   background: linear-gradient(
     0deg,
@@ -11,4 +10,74 @@
   );
   border-radius: 0 0 100px 100px;
   box-shadow: 0 0 25px #000, inset 0 0 10px #000;
+  position: relative;
+}
+
+.containerSearch {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 50px;
+}
+
+.search {
+  border-radius: 20px 0 0 20px;
+  padding-left: 20px;
+  border: 2px solid red;
+  box-shadow: 0 0 10px #000, inset 0 0 10px #000;
+}
+
+.buttonSearch {
+  border-radius: 0 20px 20px 0;
+  padding-right: 10px;
+  padding-left: 5px;
+  color: black;
+  background: red;
+  box-shadow: 0 0 10px #000, inset 0 0 10px #000;
+}
+
+.buttonClose {
+  display: flex;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  padding-right: 10px;
+  padding-left: 5px;
+  color: black;
+  background: red;
+  box-shadow: 0 0 10px #000, inset 0 0 10px #000;
+  justify-content: center;
+}
+
+.buttonSearch:hover {
+  background: white;
+  color: red;
+}
+
+.imgSearch {
+  width: 300px;
+  height: auto;
+}
+.imgClose {
+  align-self: self-start;
+  padding-top: 20px;
+  width: 40px;
+  height: auto;
+}
+
+.options {
+  background: white;
+  border-radius: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
 }

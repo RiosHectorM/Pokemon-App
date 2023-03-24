@@ -19,7 +19,7 @@ const Navbar = () => {
         }
       >
         <div className={styles.links}>
-          <h3>HOME</h3>
+          <p>HOME</p>
         </div>
       </NavLink>
       <NavLink
@@ -30,7 +30,7 @@ const Navbar = () => {
         }
       >
         <div className={styles.links}>
-          <h3>CREATE POKEMON</h3>
+          <p>CREATE POKEMON</p>
         </div>
       </NavLink>
       <NavLink
@@ -41,7 +41,7 @@ const Navbar = () => {
         }
       >
         <div className={styles.links}>
-          <h3>WHO IS THAT POKEMON</h3>
+          <p>WHO IS THAT POKEMON</p>
         </div>
       </NavLink>
       <NavLink
@@ -52,7 +52,7 @@ const Navbar = () => {
         }
       >
         <div className={styles.links}>
-          <h3>CHROMOS</h3>
+          <p>CHROMOS</p>
         </div>
       </NavLink>
       <NavLink
@@ -63,7 +63,7 @@ const Navbar = () => {
         }
       >
         <div className={styles.links}>
-          <h3>LOGOUT</h3>
+          <p>LOGOUT</p>
         </div>
       </NavLink>
     </nav>

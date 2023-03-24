@@ -1,6 +1,4 @@
-* {
-  font-family: 'Roboto Mono', monospace;
-}
+
 .container {
   display: flex;
   flex-direction: column;

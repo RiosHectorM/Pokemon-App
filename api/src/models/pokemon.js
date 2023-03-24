@@ -10,11 +10,12 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
+        unique: true,
         defaultValue: DataTypes.UUIDV4,
       },
       idPoke: {
         type: DataTypes.INTEGER,
-        unique: true,
+        autoIncrement: true,
       },
       name: {
         type: DataTypes.STRING,
@@ -47,6 +48,10 @@ module.exports = (sequelize) => {
       weight: {
         type: DataTypes.INTEGER,
         allowNull: true,
+      },
+      created: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
       },
     },
     { timestamps: false }
