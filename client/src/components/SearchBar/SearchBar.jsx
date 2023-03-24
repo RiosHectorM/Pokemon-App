@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchByName } from '../../redux/actions/actions';
+import { getAllPokemons, searchByName } from '../../redux/actions/actions';
 import styles from './SearchBar.module.css';
 
 const SearchBar = () => {
@@ -16,6 +16,8 @@ const SearchBar = () => {
     dispatch(searchByName(name));
     setName('');
   }
+const handlerReset = () => dispatch(getAllPokemons())
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
@@ -27,7 +29,7 @@ const SearchBar = () => {
         />
         <button type='submit'>SEARCH</button>
       </form>
-      <div>FILTERS</div>
+      <div><button onClick={handlerReset}>RESET FILTERS</button></div>
     </div>
   );
 };

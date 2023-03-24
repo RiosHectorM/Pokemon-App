@@ -5,35 +5,52 @@ import NotFound from '../../components/NotFound/NotFound';
 import Card from '../../components/Card/Card.jsx';
 import styles from './Home.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
+import Loader from '../../components/Loader/Loader.jsx';
 
 const Home = () => {
-  let [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
-  const allPokemons = useSelector((state) => state.pokemons);
+  let [allPokemons, setAllPokemons] = useState([]);
+  let allPokes = useSelector((state) => state.pokemons);
+
   useEffect(() => {
-    setLoader(true);
-    dispatch(getAllPokemons());
-    setLoader(false);
-  }, [dispatch]);
+    setAllPokemons(allPokes);
+  }, [allPokes, allPokemons]);
+
+  let [loaderr, setLoader] = useState(
+    allPokemons[0]?.hasOwnProperty('id') ? true : false
+  );
+
+  useEffect(() => {
+    if (!loaderr) {
+      dispatch(getAllPokemons());
+    }
+  }, [loaderr, dispatch]);
+
   console.log(allPokemons);
 
-  console.log(allPokemons[0]?.hasOwnProperty('id'));
+  console.log(allPokemons.length);
+  console.log('loaderr');
+  console.log(loaderr);
   return (
     <div className={styles.containerBody}>
       <SearchBar />
       <div className={styles.cardContainer}>
-        {allPokemons[0]?.hasOwnProperty('id') ? (
-          allPokemons.map((pokemon) => (
-            <Card
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              image={pokemon.image}
-              types={pokemon.types}
-            />
-          ))
+        {allPokemons.length ? (
+          allPokemons[0]?.hasOwnProperty('id') ? (
+            allPokemons.map((pokemon) => (
+              <Card
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                image={pokemon.image}
+                types={pokemon.types}
+              />
+            ))
+          ) : (
+            <NotFound />
+          )
         ) : (
-          <NotFound />
+          <Loader />
         )}
       </div>
     </div>

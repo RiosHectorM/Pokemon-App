@@ -12,7 +12,7 @@ export default function Card({ id, name, image, types }) {
         <div className={styles.containerTypes}>
           {types &&
             types.map((poke) => (
-              <div className={styles.imgAndName}>
+              <div className={styles.imgAndName} key={`${id}${poke.name}`}>
                 <img
                   src={IMGTYPES[poke.name]}
                   alt={poke.name}

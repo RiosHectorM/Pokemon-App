@@ -64,12 +64,10 @@ router.get('/:idPokemon', async (req, res) => {
       pokeForId = await searchBDbyId(idPokemon);
       console.log(pokeForId);
     }
-    
+
     res.status(200).json(pokeForId);
   } catch (error) {
-    res.status(400).send({
-      error: `Pokemon not found`,
-    });
+    res.status(400).send([]);
   }
 });
 

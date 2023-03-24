@@ -1,10 +1,11 @@
 import React from 'react';
 import imgLoader from '../../assets/loader.gif';
+import styles from './Loader.module.css'
 
 const Loader = () => {
   return (
-    <div>
-      <img src={imgLoader} alt='Loading' />
+    <div className={styles.container}>
+      <img src={imgLoader} alt='Loading' className={styles.imgLoader} />
     </div>
   );
 };
