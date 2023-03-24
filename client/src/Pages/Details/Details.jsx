@@ -30,7 +30,9 @@ const Details = () => {
     <div className={styles.container} style={fondo}>
       <div className={styles.containerSup}>
         {/* Contenedor sin definir */}
-        <div>DATA A DEFINIR</div>
+        <div>
+          DATA A DEFINIR
+        </div>
         {/* Contenedor de STATS */}
         <div className={styles.progress}>
           <div className={styles.stats}>
