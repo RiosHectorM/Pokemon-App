@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchByName } from '../../redux/actions/actions';
 import imgClose from '../../assets/close.png';
-import imgSearch from '../../assets/pikachusearch.png';
+import imgSearch from '../../assets/search.png';
 
 import styles from './SearchBar.module.css';
 
@@ -15,20 +15,20 @@ const SearchBar = () => {
     setName(e.target.value);
   }
 
-  function handleSubmit(e) {
+  function handlerSubmit(e) {
     e.preventDefault();
     dispatch(searchByName(name));
     setName('');
+    setShowSearch(false);
   }
 
   const showSearchDiv = () => {
     setShowSearch(true);
-  }
+  };
 
-    const closeSearchDiv = () => {
-      setShowSearch(false);
-    };
-  //const handlerReset = () => dispatch(getAllPokemons())
+  const closeSearchDiv = () => {
+    setShowSearch(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -37,7 +37,7 @@ const SearchBar = () => {
       </div>
       {showSearch && (
         <div className={styles.containerSearch}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handlerSubmit}>
             <input
               type='text'
               value={name}

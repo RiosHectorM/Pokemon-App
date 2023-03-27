@@ -121,26 +121,107 @@ import kingler from '../assets/sprites/99.gif';
 import voltorb from '../assets/sprites/100.gif';
 
 export const TYPES = {
-  water: '#5d9ced99',
-  grass: '#48ff0087',
-  fire: '#f02a1087',
-  bug: '#b9f08199',
-  normal: '#d8dbd699',
-  poison: '#aa2aae99',
-  fairy: '#ff34ff9d',
-  electric: '#fffb0099',
-  fighting: '#ffcb229d',
-  flying: '#57bbf59d',
-  ground: '#ffa80699',
-  rock: '#7a7a789d',
-  ghost: '#ff03c870',
-  steel: '#57d3f1e0',
-  psychic: '#ff2b8e9d',
-  ice: '#c7edfff3',
-  dragon: '#218df1ce',
-  dark: '#767b80ce',
-  shadow: '#507b80ce',
-  unknown: '#0f0f0f4e',
+  water: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(80, 120, 250, 0.8) 19%,
+    rgba(13, 223, 255, 0.7) 58%
+    )`,
+  flying: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(120, 160, 250, 0.8) 19%,
+    rgba(20, 180, 230, 0.7) 58%
+    )`,
+  steel: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(0, 250, 255, 0.8) 19%,
+    rgba(0, 200, 200, 0.7) 58%
+    )`,
+  dragon: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(0, 0, 255, 0.8) 19%,
+    rgba(20, 100, 200, 0.7) 58%
+    )`,
+  grass: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(50, 255, 10, 0.8) 19%,
+    rgba(100, 255, 100, 0.7) 54%
+  )`,
+  fire: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(255, 0, 4, 0.8) 19%,
+    rgba(255, 181, 8, 0.7) 54%
+  )`,
+  bug: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(220, 255, 10, 0.8) 19%,
+    rgba(120, 255, 100, 0.7) 54%
+  )`,
+  poison: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(255, 0, 234, 0.8) 19%,
+    rgba(165, 87, 194, 0.7) 54%
+  )`,
+  fairy: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(250, 100, 255, 0.8) 19%,
+    rgba(255, 163, 212, 0.7) 54%
+  )`,
+  ghost: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(170, 10, 200, 0.7) 19%,
+    rgba(255, 0, 190, 0.8) 54%
+  )`,
+  psychic: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(255, 10, 200, 0.8) 19%,
+    rgba(199, 81, 201, 0.7) 54%
+  )`,
+  electric: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(255, 255, 0, 0.8) 19%,
+    rgba(253, 255, 107, 0.7) 54%
+    )`,
+  fighting: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(255, 145, 0, 0.8) 19%,
+    rgba(255, 207, 94, 0.7) 54%
+    )`,
+  ground: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(255, 100, 0, 0.8) 19%,
+    rgba(255, 200, 0, 0.7) 54%
+    )`,
+  normal: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(161, 159, 159, 0.8) 19%,
+    rgba(112, 112, 110, 0.7) 54%
+    )`,
+  rock: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(190, 190, 190, 0.8) 19%,
+    rgba(120, 140, 140, 0.7) 54%
+    )`,
+  dark: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(80, 80, 80, 0.8) 19%,
+    rgba(120, 120, 120, 0.7) 54%
+    )`,
+  shadow: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(50, 50, 50, 0.8) 19%,
+    rgba(100, 100, 100, 0.7) 54%
+    )`,
+  unknown: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(0, 0, 0, 0.8) 19%,
+    rgba(60, 60, 60, 0.7) 54%
+    )`,
+
+  ice: `radial-gradient(
+    100% 100% at 50% 50%,
+    rgba(150, 255, 255, 0.8) 19%,
+    rgba(40, 240, 255, 0.7) 58%
+    )`,
 };
 
 export const IMGTYPES = {

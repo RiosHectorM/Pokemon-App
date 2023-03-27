@@ -35,13 +35,7 @@ const getPokeApi = async () => {
           id: pokeData.data.id,
           name: pokeData.data.name,
           image: pokeData.data.sprites.other.home.front_default,
-          // hp: pokeData.data.stats[0].base_stat,
-          // attack: pokeData.data.stats[1].base_stat,
-          // defense: pokeData.data.stats[2].base_stat,
-          // speed: pokeData.data.stats[5].base_stat,
-          // height: pokeData.data.stats[5].base_stat,
-          // weight: pokeData.data.stats[5].base_stat,
-          types: pokeData.data.types?.map((p) => ({ name : p.type.name })),
+          types: pokeData.data.types?.map((p) => ({ name: p.type.name })),
         };
         return pokemon;
       });

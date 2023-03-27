@@ -1,8 +1,12 @@
-
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 90vh;
+  width: 100%;
+  overflow: hidden;
+  background-image: url('../../assets/bg1.jpg');
+  background-size: cover;
+  background-attachment: fixed;
 }
 .containerSup {
   display: flex;
@@ -10,17 +14,46 @@
   justify-content: space-between;
 }
 
+.containerEvo {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  text-transform: uppercase;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 10px double rgb(255, 255, 255);
+  padding: 10px 20px 10px 20px;
+  border-radius: 0 80px 80px 0;
+  text-align: center;
+  animation: sliceINLeft 2s normal both;
+}
+.evolutions {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.evo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.imgChain {
+  width: 150px;
+}
+
 /*////////////////////*/
 .progress {
-  
   background: rgba(255,255,255,0.1);
   border-radius: 100px;
   align-items: center;
-  position: relative;
-  padding: 0 5px;
+  padding-top: 5px;
   display: flex;
-  height: 40px;
-  display: flex;
+  height: 20px;
   justify-content: space-between;
   flex-direction: column;
   animation: sliceINRight 2s normal both;
@@ -33,7 +66,7 @@
   border: 3px solid ;
   border-radius: 100px;
   background: #ffffff;
-  height: 30px;
+  height: 25px;
   width: 0;
   margin-left: 5px;
   margin-right: 5px;
@@ -42,13 +75,9 @@
   margin-top: 5px;
   display: flex;
   justify-content: space-between;
-  border-radius: 20px 20px 20px 20px;
+  align-items: center;
   padding: 5px 10px;
-  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.70);
-  backdrop-filter: blur( 6.5px );
-  border-radius: 0 30px 0 30px ;
-  border: 1px solid rgb(0, 0, 0);
-  width: 500px;
+  width: 400px;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -59,7 +88,7 @@
 }
 
 .statsName{
-  width: 100px;
+  width: 80px;
 }
 
 @keyframes load {
@@ -75,6 +104,7 @@
   justify-content: space-between;
   align-items: end;
   position: absolute;
+  bottom: 0;
   width: 100%;
   overflow: hidden;
 }
@@ -95,21 +125,15 @@
   animation: sliceINLeft 2s normal both;
 }
 
-.genderImg{
-  width: 30px;
-  height: auto;;
-}
 .imgPoke {
-  position: relative;
   animation: imgIN 2s normal both;
 }
-@keyframes imgIN{
+@keyframes imgIN {
   0% {
     transform: translate(0, 0) scale(0);
   }
   100% {
     transform: translate(0, 0) scale(1);
-
   }
 }
 
@@ -126,11 +150,11 @@
   border-radius: 80px 0 0 80px;
   text-align: center;
   min-width: 25%;
-  
+
   animation: sliceINRight 2s normal both;
 }
 
-@keyframes sliceINRight{
+@keyframes sliceINRight {
   0% {
     transform: translate(20em, 0) scale(0.5);
   }
@@ -138,14 +162,13 @@
   }
 }
 
-@keyframes sliceINLeft{
+@keyframes sliceINLeft {
   0% {
     transform: translate(-20em, 0) scale(0.5);
   }
   100% {
   }
 }
-
 
 .containerT {
   display: flex;
@@ -164,4 +187,10 @@
   height: auto;
   margin-left: 10px;
   margin-right: 5px;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  width: 95%;
 }

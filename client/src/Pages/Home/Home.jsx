@@ -25,6 +25,10 @@ const Home = () => {
   const currentPokemons = allPokemons.slice(firstPokemon, lastPokemon);
   const paginated = (pageNumber) => setCurrentPage(pageNumber);
 
+  /////////////////////////////////////
+  const [order, setOrder] = useState('');
+  ////////////////////////////////////////////////////////////////
+
   let [loaderr, setLoader] = useState(
     allPokemons[0]?.hasOwnProperty('id') ? true : false
   );
@@ -37,34 +41,38 @@ const Home = () => {
 
   return (
     <div className={styles.containerBody}>
-      <div className={styles.containerOptions}>
+      {currentPokemons.length ? (
+        <div className={styles.searchFilters}>
           <SearchBar setCurrentPage={setCurrentPage} />
-          <Filters setCurrentPage={setCurrentPage} />
-      </div>
-      <div className={styles.cardContainer}>
-        {currentPokemons.length ? (
-          currentPokemons[0]?.hasOwnProperty('id') ? (
-            currentPokemons.map((pokemon) => (
-              <Card
-                key={pokemon.id}
-                id={pokemon.id}
-                name={pokemon.name}
-                image={pokemon.image}
-                types={pokemon.types}
-              />
-            ))
+          <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
+        </div>
+      ) : null}
+      <div className={styles.column}>
+        <Pagination
+          pokemonsPerPage={pokemonsPerPage}
+          allPokemons={allPokemons.length}
+          paginated={paginated}
+        />
+        <div className={styles.cardContainer}>
+          {currentPokemons.length ? (
+            currentPokemons[0]?.hasOwnProperty('id') ? (
+              currentPokemons.map((pokemon) => (
+                <Card
+                  key={pokemon.id}
+                  id={pokemon.id}
+                  name={pokemon.name}
+                  image={pokemon.image}
+                  types={pokemon.types}
+                />
+              ))
+            ) : (
+              <NotFound />
+            )
           ) : (
-            <NotFound />
-          )
-        ) : (
-          <Loader />
-        )}
+            <Loader />
+          )}
+        </div>
       </div>
-      <Pagination
-        pokemonsPerPage={pokemonsPerPage}
-        allPokemons={allPokemons.length}
-        paginated={paginated}
-      />
     </div>
   );
 };

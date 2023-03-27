@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Pagination.module.css';
 
 const Pagination = ({ pokemonsPerPage, allPokemons, paginated }) => {
   const pageNumbers = [];
@@ -6,12 +7,17 @@ const Pagination = ({ pokemonsPerPage, allPokemons, paginated }) => {
     pageNumbers.push(i);
   }
   return (
-    <div>
-      <div>
-        {pageNumbers &&
+    <div className={styles.container}>
+      <div className={styles.containerNumbers}>
+        {pageNumbers.length > 1 &&
           pageNumbers.map((number) => (
-            <div key={number}>
-              <button onClick={() => paginated(number)}>{number}</button>
+            <div key={number} className={styles.numbers}>
+              <button
+                onClick={() => paginated(number)}
+                className={styles.buttonNumber}
+              >
+                {number}
+              </button>
             </div>
           ))}
       </div>

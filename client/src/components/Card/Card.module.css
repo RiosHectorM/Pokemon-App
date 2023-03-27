@@ -19,7 +19,7 @@
 .card {
   display: flex;
   height: 300px;
-  width: 300px;
+  width: 280px;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -20,5 +20,11 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 95%;
-  
+}
+
+.searchFilters{
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding-top: 10px;
 }

@@ -59,8 +59,7 @@ router.get('/:idPokemon', async (req, res) => {
   try {
     const { idPokemon } = req.params;
     let pokeForId = await getPoke(idPokemon);
-
-    if (pokeForId.error) {
+    if (pokeForId.length === 0) {
       pokeForId = await searchBDbyId(idPokemon);
     }
 
@@ -71,17 +70,8 @@ router.get('/:idPokemon', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const {
-    name,
-    hp,
-    attack,
-    defense,
-    speed,
-    height,
-    weight,
-    image,
-    types,
-  } = req.body;
+  const { name, hp, attack, defense, speed, height, weight, image, types } =
+    req.body;
 
   //Valida valores * requeridos
   if (!name || !hp || !attack || !defense || !image) {
@@ -125,5 +115,6 @@ router.post('/', async (req, res) => {
     console.log(err);
   }
 });
+
 
 module.exports = router;

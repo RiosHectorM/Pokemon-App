@@ -6,7 +6,6 @@ import {
   POST_POKEMON,
   FILTER_TYPES,
   RESTORE_POKEMONS,
-  ORDER,
   FILTER_CREATES,
   ORDER_NAME,
 } from './types.js';
@@ -118,3 +117,4 @@ export const orderName = (value) => {
     payload: value,
   };
 };
+

@@ -6,7 +6,6 @@ import {
   RESTORE_POKEMONS,
   GET_TYPES,
   FILTER_TYPES,
-  ORDER,
   FILTER_CREATES,
   ORDER_NAME,
 } from '../actions/types.js';
@@ -84,14 +83,14 @@ function rootReducer(state = initialState, action) {
           if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
           return 0;
         });
-      }
-      if (action.payload === 'descending') {
+      } else {
         sortPoke = state.pokemons.sort((a, b) => {
           if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
           if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
           return 0;
         });
       }
+      console.log(sortPoke);
       return {
         ...state,
         pokemons: sortPoke,

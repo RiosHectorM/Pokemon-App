@@ -2,22 +2,163 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: rgb(255, 0, 0);
-  background: linear-gradient(
-    0deg,
-    rgba(255, 0, 0, 0.9780287114845938) 70%,
-    rgba(0, 0, 0, 1) 100%
-  );
-  border-radius: 0 0 100px 100px;
-  box-shadow: 0 0 25px #000, inset 0 0 10px #000;
-  position: relative;
   width: 100%;
 }
 
-.options {
+.containerFloat {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 50px;
+  flex-wrap: wrap;
+}
+
+.containerFloatTypes {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  display: flex;
+  width: 90vw;
+  height: auto;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 50px;
+}
+
+.containerTypesMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.containerTypes {
+  display: flex;
+  margin: 20px;
+  width: 170px;
+}
+
+.imgTypes {
+  width: 80px;
+  z-index: 20;
+}
+
+.closeAndCreated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.imgClose {
+  align-self: self-start;
+  padding-top: 20px;
+  width: 40px;
+  height: auto;
+}
+
+.imgOrder1 {
+  width: 180px;
+}
+.imgOrder2 {
+  width: 250px;
+}
+
+.buttonOrder {
+  margin: 10px;
+  border-radius: 20px;
+  padding-right: 10px;
+  padding-left: 5px;
+  color: black;
+  background: red;
+  box-shadow: 0 0 10px #000, inset 0 0 10px #000;
+}
+
+.buttonOrder:hover {
   background: white;
-  border-radius: 30px;
+  color: red;
+}
+
+.options {
+  background: red;
+  color: white;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  box-shadow: inset 0 0 20px #000;
+  border: 1px solid #000;
+}
+
+.options:hover {
+  cursor: pointer;
+  animation: backgr 0.7s both;
+}
+
+@keyframes backgr {
+  0% {
+    background: white;
+    color: red;
+    box-shadow: 0;
+    box-shadow: 2px 2px 2px 2px rgba(255, 255, 255, 0.6),
+      -2px -2px 2px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  100% {
+    background: rgb(255, 0, 0);
+    background: linear-gradient(
+      346deg,
+      rgba(255, 0, 0, 1) 32%,
+      rgba(255, 255, 255, 0.5214460784313726) 50%,
+      rgba(0, 0, 0, 1) 68%
+    );
+    color: white;
+    box-shadow: 10px 12px 14px 14px rgba(255, 255, 255, 0.6),
+      -10px -15px 9px 10px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.buttonType {
+  text-transform: uppercase;
+  background: red;
+  color: white;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 20px;
+  font-size: 12px;
+  box-shadow: inset 0 0 20px #000;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.buttonType:hover {
+  cursor: pointer;
+  animation: backgr 0.7s both;
+}
+
+.closeContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pokeImage{
+  width: 170px;
 }

@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.containerNumbers {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.buttonNumber {
+  display: flex;
+  margin: 10px;
+  border-radius: 50%;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: red;
+}
+
+.buttonNumber:hover {
+  cursor: pointer;
+  animation: backgr 0.5s both;
+}
+
+@keyframes backgr {
+  0% {
+    background: white;
+    color: red;
+    box-shadow: 0;
+    box-shadow: 2px 2px 2px 2px rgba(255, 255, 255, 0.6),
+      -2px -2px 2px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  100% {
+    background: rgb(255, 0, 0);
+    background: linear-gradient(
+      346deg,
+      rgba(255, 0, 0, 1) 32%,
+      rgba(255, 255, 255, 0.5214460784313726) 50%,
+      rgba(0, 0, 0, 1) 68%
+    );
+    color: white;
+    box-shadow: 10px 12px 14px 14px rgba(255, 255, 255, 0.6),
+      -10px -15px 9px 10px rgba(0, 0, 0, 0.6);
+  }
+}
