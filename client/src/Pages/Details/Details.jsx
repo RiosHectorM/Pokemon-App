@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import { getPokemonDetails } from '../../redux/actions/actions.js';
 import styles from './Details.module.css';
 import { TYPES, IMGTYPES, STATS } from '../../constants/types.js';
-import Loader from '../../components/Loader/Loader.jsx'
+import Loader from '../../components/Loader/Loader.jsx';
+import deleteImg from '../../assets/extras/delete.png';
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,17 @@ const Details = () => {
           <div className={styles.containerSup}>
             {/* Contenedor Cadena de Evolucion */}
             <div className={styles.containerEvo}>
-              <h3>POKEMON FAMILY</h3>
+              {pokemon.created ? (
+                <div>
+                  <h3>CUSTOM POKEMON</h3>
+                  <div className={styles.containerDelete}>
+                    <h4>DELETE </h4>
+                    <img src={deleteImg} alt='delete' className={styles.deleteImg} />
+                  </div>
+                </div>
+              ) : (
+                <h3>POKEMON FAMILY</h3>
+              )}
               {pokemon.evolution ? (
                 <div className={styles.evolutions}>
                   {pokemon.evolution.map((chain) => (

@@ -127,6 +127,7 @@
 
 .imgPoke {
   animation: imgIN 2s normal both;
+  max-height: 500px;
 }
 @keyframes imgIN {
   0% {
@@ -193,4 +194,13 @@
   display: flex;
   justify-content: center;
   width: 95%;
+}
+
+.containerDelete{
+  display: flex;
+  justify-content: center;
+}
+
+.deleteImg{
+  width: 80px;
 }

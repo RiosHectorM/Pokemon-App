@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { NEWPOKES } from '../../constants/newPokes';
 import { IMGTYPES } from '../../constants/types';
+import validations from '../../constants/validations';
 import { getTypes, postPokemon } from '../../redux/actions/actions';
 import styles from './CreateForm.module.css';
 
@@ -18,23 +19,30 @@ const Create = () => {
     speed: 0,
     height: 0,
     weight: 0,
-    image: '',
+    image: NEWPOKES[0],
     types: [],
   });
+
+  const [error, setError] = useState({});
 
   const handleInput = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
+    setError(validations({
+            ...input,
+            [e.target.name] : e.target.value
+    }))
+    console.log(error)
   };
 
-  // const handleSelect = (e) => {
-  //   setInput({
-  //     ...input,
-  //     types: [...input.types, e.target.value],
-  //   });
-  // };
+  const handleSelect = (e) => {
+    setInput({
+      ...input,
+      types: [...input.types, e.target.value],
+    });
+  };
 
   useEffect(() => {
     dispatch(getTypes());
@@ -46,16 +54,16 @@ const Create = () => {
     dispatch(postPokemon(input));
     setInput({
       name: '',
+      image: '',
+      hp: '',
+      attack: '',
+      defense: '',
+      speed: '',
+      height: '',
+      weight: '',
       // firstType: '',
       // secondType: '',
       types: '',
-      image: '',
-      hp: 0,
-      attack: 0,
-      defense: 0,
-      speed: 0,
-      height: 0,
-      weight: 0,
     });
     alert('POKEMON CREATED');
   };
@@ -77,7 +85,7 @@ const Create = () => {
       </div> */}
       <div className={styles.container}>
         <div className={styles.containerImage}>
-          <div>
+          <div className={styles.containerNewImage}>
             <img src={imgNewPoke} alt='poke' className={styles.imgNewPoke} />
           </div>
           <div className={styles.containerMiniatures}>
@@ -101,12 +109,14 @@ const Create = () => {
                   <div>
                     <label htmlFor='name'>NAME:</label>
                     <input
-                      required
                       type='text'
+                      autoFocus
                       placeholder='Name'
                       name='name'
+                      id='name'
                       value={input.name}
                       onChange={handleInput}
+                      className={styles.nameInput}
                     />
                   </div>
                   <div className={styles.stat}>
@@ -117,12 +127,12 @@ const Create = () => {
                       type='text'
                       value={input.height}
                       name='height'
+                      id='height'
                       onChange={handleInput}
                       className={styles.input}
                     />
                     <input
                       type='range'
-                      class='rangeStyle'
                       name='height'
                       value={input.height}
                       onChange={handleInput}
@@ -133,19 +143,19 @@ const Create = () => {
                     ></input>
                   </div>
                   <div className={styles.stat}>
-                    <label htmlFor='height' className={styles.labels}>
+                    <label htmlFor='weight' className={styles.labels}>
                       WEIGHT
                     </label>
                     <input
                       type='text'
                       value={input.weight}
                       name='weight'
+                      id='weight'
                       onChange={handleInput}
                       className={styles.input}
                     />
                     <input
                       type='range'
-                      class='rangeStyle'
                       name='weight'
                       value={input.weight}
                       onChange={handleInput}
@@ -166,12 +176,12 @@ const Create = () => {
                       type='text'
                       value={input.hp}
                       name='hp'
+                      id='hp'
                       onChange={handleInput}
                       className={styles.input}
                     />
                     <input
                       type='range'
-                      class='rangeStyle'
                       name='hp'
                       value={input.hp}
                       onChange={handleInput}
@@ -189,12 +199,12 @@ const Create = () => {
                       type='text'
                       value={input.attack}
                       name='attack'
+                      id='attack'
                       onChange={handleInput}
                       className={styles.input}
                     />
                     <input
                       type='range'
-                      class='rangeStyle'
                       name='attack'
                       value={input.attack}
                       onChange={handleInput}
@@ -212,12 +222,12 @@ const Create = () => {
                       type='text'
                       value={input.defense}
                       name='defense'
+                      id='defense'
                       onChange={handleInput}
                       className={styles.input}
                     />
                     <input
                       type='range'
-                      class='rangeStyle'
                       name='defense'
                       value={input.defense}
                       onChange={handleInput}
@@ -235,12 +245,12 @@ const Create = () => {
                       type='text'
                       value={input.speed}
                       name='speed'
+                      id='speed'
                       onChange={handleInput}
                       className={styles.input}
                     />
                     <input
                       type='range'
-                      class='rangeStyle'
                       name='speed'
                       value={input.speed}
                       onChange={handleInput}
@@ -251,44 +261,29 @@ const Create = () => {
                     ></input>
                   </div>
                 </div>
-
-                {/* <select onChange={handleSelect}>
-                  <option value={'111111'} key={'aasd1'}>
-                    opcion1
-                  </option>
-                  <option value={'1111s'} key={'aasd2'}>
-                    opcion2
-                  </option>
-                  <option value={'23'} key={'aasd3'}>
-                    opcion3
-                  </option>
-                  <option value={'453'} key={'asd4'}>
-                    opcion4
-                  </option>
-                </select> */}
               </div>
               <div className={styles.containerTypes}>
-                TYPES
                 <div className={styles.checkTypes}>
                   {allTypes &&
                     allTypes.map((type) => (
-                      <div>
-                        <div className={styles.checkOptions}>
-                          <input
-                            className={styles.ckeck}
-                            type='checkbox'
-                            name='types'
-                            value={type}
-                          />
-                          <img
-                            src={IMGTYPES[type]}
-                            alt={type}
-                            className={styles.imgTypes}
-                          />
-                          <label className={styles.typesLabels} for={type}>
-                            {type}
-                          </label>
-                        </div>
+                      <div className={styles.checkOptions} key={type}>
+                        <input
+                          className={styles.ckeck}
+                          type='checkbox'
+                          name='types'
+                          id={type}
+                          value={type}
+                          onChange={handleSelect}
+                        />
+                        <label className={styles.typesLabels} htmlFor={type}>
+                        <img
+                          src={IMGTYPES[type]}
+                          alt={type}
+                          className={styles.imgTypes}
+                          htmlFor={type}
+                        />
+                          {type}
+                        </label>
                       </div>
                     ))}
                 </div>
@@ -302,7 +297,7 @@ const Create = () => {
                     onChange={handleInput}
                   />
                 </div>
-                <div>
+                <div style={{ display: 'none' }}>
                   <input
                     type='text'
                     name='types'
@@ -313,7 +308,11 @@ const Create = () => {
                 </div>
               </div>
 
-              <button type='submit'>Create!</button>
+              <div className={styles.containerButtonCreate}>
+                {error && <button type='submit' className={styles.createButton}>
+                  CREATE !!!
+                </button>}
+              </div>
             </form>
           </div>
         </div>
