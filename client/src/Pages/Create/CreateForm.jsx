@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { NEWPOKES } from '../../constants/newPokes';
 import { IMGTYPES } from '../../constants/types';
 import { getTypes, postPokemon } from '../../redux/actions/actions';
 import styles from './CreateForm.module.css';
@@ -59,13 +60,38 @@ const Create = () => {
     alert('POKEMON CREATED');
   };
 
+  let [imgNewPoke, setImgNewPoke] = useState(NEWPOKES[0]);
+
+  const setImage = (poke) => {
+    setImgNewPoke(poke);
+    setInput({
+      ...input,
+      image: poke,
+    });
+  };
+
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.title}>
+      {/* <div className={styles.title}>
         <h3>CREATE YOUR POKEMON!</h3>
-      </div>
+      </div> */}
       <div className={styles.container}>
-        <div className={styles.containerImage}>IMAGEN</div>
+        <div className={styles.containerImage}>
+          <div>
+            <img src={imgNewPoke} alt='poke' className={styles.imgNewPoke} />
+          </div>
+          <div className={styles.containerMiniatures}>
+            {NEWPOKES.map((poke) => (
+              <img
+                src={poke}
+                alt='poke'
+                className={styles.miniature}
+                onClick={() => setImage(poke)}
+                key={poke}
+              />
+            ))}
+          </div>
+        </div>
         <div className={styles.containerData}>
           <div className={styles.containerForm}>
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -249,7 +275,7 @@ const Create = () => {
                       <div>
                         <div className={styles.checkOptions}>
                           <input
-                            class='form-check-input'
+                            className={styles.ckeck}
                             type='checkbox'
                             name='types'
                             value={type}
@@ -259,17 +285,18 @@ const Create = () => {
                             alt={type}
                             className={styles.imgTypes}
                           />
-                          <label class='' for={type}>
+                          <label className={styles.typesLabels} for={type}>
                             {type}
                           </label>
                         </div>
                       </div>
                     ))}
                 </div>
-                <div>
+                <div style={{ display: 'none' }}>
                   <input
                     type='text'
                     name='image'
+                    id='image'
                     placeholder={'pick an image'}
                     value={input.image}
                     onChange={handleInput}

@@ -11,17 +11,14 @@ const Navbar = () => {
           <img src={logo} alt='logo' className={styles.logo} />
         </Link>
       </div>
-      <NavLink
-        to='/pokemons'
+      <a
+        href='/pokemons'
         style={{ textDecoration: 'none', color: 'black' }}
-        className={({ isActive, isPending }) =>
-          isPending ? 'pending' : isActive ? 'active' : ''
-        }
       >
         <div className={styles.links}>
           <p>HOME</p>
         </div>
-      </NavLink>
+      </a>
       <NavLink
         to='/create'
         style={{ textDecoration: 'none', color: 'black' }}
