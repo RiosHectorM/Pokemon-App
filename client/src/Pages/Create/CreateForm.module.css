@@ -70,6 +70,20 @@
   flex-direction: column;
 }
 
+.containerErrorData{
+  display: flex;
+  flex-direction: column;
+}
+
+.error{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  color: red;
+  border-radius: 10px;
+}
+
 .containerForm {
   display: flex;
   height: 100%;

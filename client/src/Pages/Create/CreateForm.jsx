@@ -4,10 +4,16 @@ import { useSelector } from 'react-redux';
 import { NEWPOKES } from '../../constants/newPokes';
 import { IMGTYPES } from '../../constants/types';
 import validations from '../../constants/validations';
-import { getTypes, postPokemon } from '../../redux/actions/actions';
+import {
+  getAllPokemons,
+  getTypes,
+  postPokemon,
+} from '../../redux/actions/actions';
 import styles from './CreateForm.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allTypes = useSelector((state) => state.allTypes);
 
@@ -30,18 +36,43 @@ const Create = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setError(validations({
-            ...input,
-            [e.target.name] : e.target.value
-    }))
-    console.log(error)
+    setError(
+      validations({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
+    console.log(error);
   };
 
   const handleSelect = (e) => {
-    setInput({
-      ...input,
-      types: [...input.types, e.target.value],
-    });
+    if (e.target.checked) {
+      setInput({
+        ...input,
+        types: [...input.types, e.target.value],
+      });
+
+      setError(
+        validations({
+          ...input,
+          types: [...input.types, e.target.value],
+        })
+      );
+    } else if (!e.target.checked) {
+      setInput({
+        ...input,
+        types: input.types.filter((el) => el !== e.target.value),
+      });
+
+      setError(
+        validations({
+          ...input,
+          types: input.types.filter((el) => el !== e.target.value),
+        })
+      );
+    }
+    console.log(error);
+    console.log(input.types);
   };
 
   useEffect(() => {
@@ -50,22 +81,25 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
-    dispatch(postPokemon(input));
-    setInput({
-      name: '',
-      image: '',
-      hp: '',
-      attack: '',
-      defense: '',
-      speed: '',
-      height: '',
-      weight: '',
-      // firstType: '',
-      // secondType: '',
-      types: '',
-    });
-    alert('POKEMON CREATED');
+
+    if (Object.keys(error).length === 0 && input.name.length) {
+      dispatch(postPokemon(input));
+      dispatch(getAllPokemons());
+      alert('Pokemon created successfuly!');
+      setInput({
+        name: '',
+        hp: '',
+        attack: '',
+        defense: '',
+        speed: '',
+        weight: '',
+        height: '',
+        types: [],
+      });
+      navigate('/pokemons');
+    } else {
+      alert('Check the Data entered');
+    }
   };
 
   let [imgNewPoke, setImgNewPoke] = useState(NEWPOKES[0]);
@@ -106,159 +140,213 @@ const Create = () => {
               <div className={styles.containerStats}>
                 <h5>CHARACTERISTICS</h5>
                 <div className={styles.charaterist}>
-                  <div>
-                    <label htmlFor='name'>NAME:</label>
-                    <input
-                      type='text'
-                      autoFocus
-                      placeholder='Name'
-                      name='name'
-                      id='name'
-                      value={input.name}
-                      onChange={handleInput}
-                      className={styles.nameInput}
-                    />
+                  <div className={styles.containerErrorData}>
+                    <div>
+                      <label htmlFor='name'>NAME:</label>
+                      <input
+                        type='text'
+                        autoFocus
+                        placeholder='Name'
+                        name='name'
+                        id='name'
+                        value={input.name}
+                        onChange={handleInput}
+                        className={styles.nameInput}
+                        style={error.name ? { background: 'red' } : null}
+                      />
+                    </div>
+                    <div className={styles.error}>
+                      {error.name && <h6>{error.name}</h6>}
+                    </div>
                   </div>
                   <div className={styles.stat}>
-                    <label htmlFor='height' className={styles.labels}>
-                      HEIGHT
-                    </label>
-                    <input
-                      type='text'
-                      value={input.height}
-                      name='height'
-                      id='height'
-                      onChange={handleInput}
-                      className={styles.input}
-                    />
-                    <input
-                      type='range'
-                      name='height'
-                      value={input.height}
-                      onChange={handleInput}
-                      min='0'
-                      max='50'
-                      step='1'
-                      className={styles.range}
-                    ></input>
+                    <div className={styles.containerErrorData}>
+                      <div>
+                        <label htmlFor='height' className={styles.labels}>
+                          HEIGHT
+                        </label>
+                        <input
+                          type='text'
+                          value={input.height}
+                          name='height'
+                          id='height'
+                          onChange={handleInput}
+                          className={styles.input}
+                          style={error.height ? { background: 'red' } : null}
+                        />
+                        <input
+                          type='range'
+                          name='height'
+                          value={input.height}
+                          onChange={handleInput}
+                          min='0'
+                          max='50'
+                          step='1'
+                          className={styles.range}
+                        ></input>
+                      </div>
+                      <div className={styles.error}>
+                        {error.height && <h6>{error.height}</h6>}
+                      </div>
+                    </div>
                   </div>
                   <div className={styles.stat}>
-                    <label htmlFor='weight' className={styles.labels}>
-                      WEIGHT
-                    </label>
-                    <input
-                      type='text'
-                      value={input.weight}
-                      name='weight'
-                      id='weight'
-                      onChange={handleInput}
-                      className={styles.input}
-                    />
-                    <input
-                      type='range'
-                      name='weight'
-                      value={input.weight}
-                      onChange={handleInput}
-                      min='0'
-                      max='1000'
-                      step='1'
-                      className={styles.range}
-                    ></input>
+                    <div className={styles.containerErrorData}>
+                      <div>
+                        <label htmlFor='weight' className={styles.labels}>
+                          WEIGHT
+                        </label>
+                        <input
+                          type='text'
+                          value={input.weight}
+                          name='weight'
+                          id='weight'
+                          onChange={handleInput}
+                          className={styles.input}
+                          style={error.weight ? { background: 'red' } : null}
+                        />
+                        <input
+                          type='range'
+                          name='weight'
+                          value={input.weight}
+                          onChange={handleInput}
+                          min='0'
+                          max='1000'
+                          step='1'
+                          className={styles.range}
+                        ></input>
+                      </div>
+                      <div className={styles.error}>
+                        {error.weight && <h6>{error.weight}</h6>}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <h5>STATS</h5>
                 <div className={styles.stats}>
                   <div className={styles.stat}>
-                    <label htmlFor='hp' className={styles.labels}>
-                      HEALT
-                    </label>
-                    <input
-                      type='text'
-                      value={input.hp}
-                      name='hp'
-                      id='hp'
-                      onChange={handleInput}
-                      className={styles.input}
-                    />
-                    <input
-                      type='range'
-                      name='hp'
-                      value={input.hp}
-                      onChange={handleInput}
-                      min='0'
-                      max='150'
-                      step='1'
-                      className={styles.range}
-                    ></input>
+                    <div className={styles.containerErrorData}>
+                      <div>
+                        <label htmlFor='hp' className={styles.labels}>
+                          HEALT
+                        </label>
+                        <input
+                          type='text'
+                          value={input.hp}
+                          name='hp'
+                          id='hp'
+                          onChange={handleInput}
+                          className={styles.input}
+                          style={error.hp ? { background: 'red' } : null}
+                        />
+                        <input
+                          type='range'
+                          name='hp'
+                          value={input.hp}
+                          onChange={handleInput}
+                          min='0'
+                          max='150'
+                          step='1'
+                          className={styles.range}
+                        ></input>
+                      </div>
+                      <div className={styles.error}>
+                        {error.hp && <h6>{error.hp}</h6>}
+                      </div>
+                    </div>
                   </div>
                   <div className={styles.stat}>
-                    <label htmlFor='attack' className={styles.labels}>
-                      ATTACK
-                    </label>
-                    <input
-                      type='text'
-                      value={input.attack}
-                      name='attack'
-                      id='attack'
-                      onChange={handleInput}
-                      className={styles.input}
-                    />
-                    <input
-                      type='range'
-                      name='attack'
-                      value={input.attack}
-                      onChange={handleInput}
-                      min='0'
-                      max='150'
-                      step='1'
-                      className={styles.range}
-                    ></input>
+                    <div className={styles.containerErrorData}>
+                      <div>
+                        <label htmlFor='attack' className={styles.labels}>
+                          ATTACK
+                        </label>
+                        <input
+                          type='text'
+                          value={input.attack}
+                          name='attack'
+                          id='attack'
+                          onChange={handleInput}
+                          className={styles.input}
+                          style={error.attack ? { background: 'red' } : null}
+                        />
+                        <input
+                          type='range'
+                          name='attack'
+                          value={input.attack}
+                          onChange={handleInput}
+                          min='0'
+                          max='150'
+                          step='1'
+                          className={styles.range}
+                        ></input>
+                      </div>
+                      <div className={styles.error}>
+                        {error.attack && <h6>{error.attack}</h6>}
+                      </div>
+                    </div>
                   </div>
                   <div className={styles.stat}>
-                    <label htmlFor='defense' className={styles.labels}>
-                      DEFENSE
-                    </label>
-                    <input
-                      type='text'
-                      value={input.defense}
-                      name='defense'
-                      id='defense'
-                      onChange={handleInput}
-                      className={styles.input}
-                    />
-                    <input
-                      type='range'
-                      name='defense'
-                      value={input.defense}
-                      onChange={handleInput}
-                      min='0'
-                      max='150'
-                      step='1'
-                      className={styles.range}
-                    ></input>
+                    <div className={styles.containerErrorData}>
+                      <div>
+                        <label htmlFor='defense' className={styles.labels}>
+                          DEFENSE
+                        </label>
+                        <input
+                          type='text'
+                          value={input.defense}
+                          name='defense'
+                          id='defense'
+                          onChange={handleInput}
+                          className={styles.input}
+                          style={error.defense ? { background: 'red' } : null}
+                        />
+                        <input
+                          type='range'
+                          name='defense'
+                          value={input.defense}
+                          onChange={handleInput}
+                          min='0'
+                          max='150'
+                          step='1'
+                          className={styles.range}
+                        ></input>
+                      </div>
+                      <div className={styles.error}>
+                        {error.defense && <h6>{error.defense}</h6>}
+                      </div>
+                    </div>
                   </div>
                   <div className={styles.stat}>
-                    <label htmlFor='speed' className={styles.labels}>
-                      SPEED
-                    </label>
-                    <input
-                      type='text'
-                      value={input.speed}
-                      name='speed'
-                      id='speed'
-                      onChange={handleInput}
-                      className={styles.input}
-                    />
-                    <input
-                      type='range'
-                      name='speed'
-                      value={input.speed}
-                      onChange={handleInput}
-                      min='0'
-                      max='150'
-                      step='1'
-                      className={styles.range}
-                    ></input>
+                    <div>
+                      <div>
+                        <label htmlFor='speed' className={styles.labels}>
+                          SPEED
+                        </label>
+                        <input
+                          type='text'
+                          value={input.speed}
+                          name='speed'
+                          id='speed'
+                          onChange={handleInput}
+                          className={styles.input}
+                          style={error.speed ? { background: 'red' } : null}
+                        />
+                        <input
+                          type='range'
+                          name='speed'
+                          value={input.speed}
+                          onChange={handleInput}
+                          min='0'
+                          max='150'
+                          step='1'
+                          className={styles.range}
+                        ></input>
+                      </div>
+                      <div className={styles.error}>
+                        {error.speed && <h6>{error.speed}</h6>}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -276,16 +364,19 @@ const Create = () => {
                           onChange={handleSelect}
                         />
                         <label className={styles.typesLabels} htmlFor={type}>
-                        <img
-                          src={IMGTYPES[type]}
-                          alt={type}
-                          className={styles.imgTypes}
-                          htmlFor={type}
-                        />
+                          <img
+                            src={IMGTYPES[type]}
+                            alt={type}
+                            className={styles.imgTypes}
+                            htmlFor={type}
+                          />
                           {type}
                         </label>
                       </div>
                     ))}
+                </div>
+                <div className={styles.error}>
+                  {error.types && <h6>{error.types}</h6>}
                 </div>
                 <div style={{ display: 'none' }}>
                   <input
@@ -309,9 +400,11 @@ const Create = () => {
               </div>
 
               <div className={styles.containerButtonCreate}>
-                {error && <button type='submit' className={styles.createButton}>
-                  CREATE !!!
-                </button>}
+                {error && (
+                  <button type='submit' className={styles.createButton}>
+                    CREATE !!!
+                  </button>
+                )}
               </div>
             </form>
           </div>
