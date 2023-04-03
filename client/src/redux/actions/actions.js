@@ -78,6 +78,7 @@ export const postPokemon = (values) => {
   };
 };
 
+
 export const searchByName = (name) => {
   return async function (dispatch) {
     return fetch(`http://localhost:3001/pokemons?name=${name}`)

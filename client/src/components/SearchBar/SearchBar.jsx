@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchByName } from '../../redux/actions/actions';
 import imgClose from '../../assets/close.png';
-import imgSearch from '../../assets/search.png';
+import imgSearch from '../../assets/extras/search.png';
+import pikachuSearch from '../../assets/extras/pikachuSearch.gif';
 
 import styles from './SearchBar.module.css';
 
@@ -10,14 +11,17 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [showSearch, setShowSearch] = useState(false);
+  let [load, setLoad] = useState(false);
 
   function handleInputChange(e) {
     setName(e.target.value);
   }
 
-  function handlerSubmit(e) {
+  async function handlerSubmit(e) {
     e.preventDefault();
-    dispatch(searchByName(name));
+    setLoad(true);
+    await dispatch(searchByName(name));
+    setLoad(false);
     setName('');
     setShowSearch(false);
   }
@@ -37,25 +41,40 @@ const SearchBar = () => {
       </div>
       {showSearch && (
         <div className={styles.containerSearch}>
-          <form onSubmit={handlerSubmit}>
-            <input
-              type='text'
-              value={name}
-              placeholder='Pokemon...'
-              className={styles.search}
-              onChange={handleInputChange}
-            />
-            <button type='submit' className={styles.buttonSearch}>
-              SEARCH
-            </button>
-          </form>
-          <img src={imgSearch} alt='search' className={styles.imgSearch} />
-          <img
-            src={imgClose}
-            alt='close'
-            className={styles.imgClose}
-            onClick={closeSearchDiv}
-          />
+          {!load ? (
+            <form onSubmit={handlerSubmit}>
+              <input
+                type='text'
+                value={name}
+                placeholder='Pokemon...'
+                className={styles.search}
+                onChange={handleInputChange}
+              />
+              <button type='submit' className={styles.buttonSearch}>
+                SEARCH
+              </button>
+            </form>
+          ) : (
+            <div className={styles.containerSearchGif}>
+              <img
+                src={pikachuSearch}
+                alt='pikachuSearch'
+                className={styles.imgSearchGif}
+              />
+              <h3>SEARCHING...</h3>
+            </div>
+          )}
+          {!load ? (
+            <div>
+              <img src={imgSearch} alt='Search' className={styles.imgSearch} />
+              <img
+                src={imgClose}
+                alt='close'
+                className={styles.imgClose}
+                onClick={closeSearchDiv}
+              />
+            </div>
+          ) : null}
         </div>
       )}
     </div>
@@ -63,7 +82,3 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
-
-{
-  /* <button onClick={handlerReset}>RESET FILTERS</button>; */
-}

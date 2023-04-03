@@ -90,7 +90,9 @@ router.post('/', async (req, res) => {
   //Valida que no exista un pokemon personalizado con el mismo nombre
   const exists = await Pokemon.findOne({ where: { name: name } });
   if (exists)
-    return res.status(400).send({ error: `Pokemon ${name} already exists` });
+    return res.status(400).send(null);
+  
+  //  return res.status(400).send({ error: `Pokemon ${name} already exists` });
 
   //superadas las validaciones crea el nuevo pokemon personalizado
   try {

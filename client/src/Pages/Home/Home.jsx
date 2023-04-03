@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllPokemons } from '../../redux/actions/actions.js';
+import { useDispatch, useSelector } from 'react-redux';
 import NotFound from '../../components/NotFound/NotFound';
 import Card from '../../components/Card/Card.jsx';
 import styles from './Home.module.css';
@@ -8,49 +7,44 @@ import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import Loader from '../../components/Loader/Loader.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import Filters from '../../components/Filters/Filters.jsx';
+import { restorePokemons } from '../../redux/actions/actions';
 
 const Home = () => {
   const dispatch = useDispatch();
-  let [allPokemons, setAllPokemons] = useState([]);
-  let allPokes = useSelector((state) => state.pokemons);
 
   useEffect(() => {
-    setAllPokemons(allPokes);
-  }, [allPokes, allPokemons]);
+    dispatch(restorePokemons());
+    setCurrentPage(1);
+  },[]);
+
+  let allPokes = [];
+  allPokes = useSelector((state) => state.filteredPokemons);
+
+  let [order, setOrder] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
   const lastPokemon = currentPage * pokemonsPerPage;
   const firstPokemon = lastPokemon - pokemonsPerPage;
-  const currentPokemons = allPokemons.slice(firstPokemon, lastPokemon);
+  const currentPokemons = allPokes.slice(firstPokemon, lastPokemon);
   const paginated = (pageNumber) => setCurrentPage(pageNumber);
-
-  /////////////////////////////////////
-  const [order, setOrder] = useState('');
-  ////////////////////////////////////////////////////////////////
-
-  let [loaderr, setLoader] = useState(
-    allPokemons[0]?.hasOwnProperty('id') ? true : false
-  );
-
-  useEffect(() => {
-    if (!loaderr) {
-      dispatch(getAllPokemons());
-    }
-  }, [loaderr, dispatch]);
 
   return (
     <div className={styles.containerBody}>
       {currentPokemons.length ? (
         <div className={styles.searchFilters}>
-          <SearchBar setCurrentPage={setCurrentPage} />
-          <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
+          <SearchBar />
+          <Filters
+            setCurrentPage={setCurrentPage}
+            setOrder={setOrder}
+            order={order}
+          />
         </div>
       ) : null}
       <div className={styles.column}>
         <Pagination
           pokemonsPerPage={pokemonsPerPage}
-          allPokemons={allPokemons.length}
+          allPokemons={allPokes.length}
           paginated={paginated}
         />
         <div className={styles.cardContainer}>

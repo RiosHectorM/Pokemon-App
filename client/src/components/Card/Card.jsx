@@ -6,31 +6,36 @@ import { IMAGES } from '../../constants/types.js';
 
 export default function Card({ id, name, image, types }) {
   return (
-    <div className={styles.card} style={{ background: TYPES[types[0]?.name] }}>
-      <div className={styles.info}>
-        <h2>{name}</h2>
-        <div className={styles.containerTypes}>
-          {types &&
-            types.map((poke) => (
-              <div className={styles.imgAndName} key={`${id}${poke.name}`}>
-                <img
-                  src={IMGTYPES[poke.name]}
-                  alt={poke.name}
-                  className={styles.typesImg}
-                />
-                <h3>{poke.name}</h3>
-              </div>
-            ))}
+    types && (
+      <div
+        className={styles.card}
+        style={{ background: TYPES[types[0]?.name] }}
+      >
+        <div className={styles.info}>
+          <h2>{name}</h2>
+          <div className={styles.containerTypes}>
+            {types &&
+              types.map((poke) => (
+                <div className={styles.imgAndName} key={`${id}${poke.name}`}>
+                  <img
+                    src={IMGTYPES[poke.name]}
+                    alt={poke.name}
+                    className={styles.typesImg}
+                  />
+                  <h3>{poke.name}</h3>
+                </div>
+              ))}
+          </div>
         </div>
-      </div>
 
-      <Link to={`/pokemons/${id}`}>
-        {IMAGES[id] ? (
-          <img src={IMAGES[id]} alt={name} className={styles.imgPoke} />
-        ) : (
-          <img src={image} alt={name} className={styles.imgPoke} />
-        )}
-      </Link>
-    </div>
+        <Link to={`/pokemons/${id}`}>
+          {IMAGES[id] ? (
+            <img src={IMAGES[id]} alt={name} className={styles.imgPoke} />
+          ) : (
+            <img src={image} alt={name} className={styles.imgPoke} />
+          )}
+        </Link>
+      </div>
+    )
   );
 }

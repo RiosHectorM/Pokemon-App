@@ -15,7 +15,7 @@ import {
 } from '../../redux/actions/actions.js';
 import { IMGTYPES } from '../../constants/types';
 
-const Filters = ({ setCurrentPage, setOrder }) => {
+const Filters = ({ setCurrentPage, setOrder, order }) => {
   const dispatch = useDispatch();
   const allTypes = useSelector((state) => state.allTypes);
 
@@ -32,6 +32,7 @@ const Filters = ({ setCurrentPage, setOrder }) => {
   }
   function handlerFilterTypes(e) {
     dispatch(filterByTypes(e.target.value));
+    dispatch(orderName(order));
     setCurrentPage(1);
     setShowFilters(false);
   }
@@ -42,8 +43,9 @@ const Filters = ({ setCurrentPage, setOrder }) => {
   }
   function handlerOrderName(e) {
     dispatch(orderName(e.target.value));
+    setOrder(e.target.value);
+    setShowOrder(false);
     setCurrentPage(1);
-    setOrder(`Order ${e.target.value}`);
   }
 
   const showFiltersDiv = () => {
@@ -110,7 +112,7 @@ const Filters = ({ setCurrentPage, setOrder }) => {
       </div>
       {showOrder && (
         <div className={styles.containerFloat}>
-          <img src={asending} alt='asending' className={styles.imgOrder1} />
+          <img src={asending} alt='ascending' className={styles.imgOrder1} />
           <button
             className={styles.buttonOrder}
             value='ascending'

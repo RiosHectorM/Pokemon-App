@@ -33,15 +33,19 @@ function rootReducer(state = initialState, action) {
       };
 
     case POST_POKEMON:
+      console.log(action.payload);
+
+      console.log(state.filteredPokemons);
       return {
         ...state,
         pokemons: [...state.pokemons, action.payload],
+        filteredPokemons: [...state.filteredPokemons, action.payload],
       };
 
     case SEARCH_POKEMON:
       return {
         ...state,
-        pokemons: action.payload,
+        filteredPokemons: action.payload,
       };
 
     case GET_TYPES:
@@ -51,7 +55,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case FILTER_TYPES:
-      const allPokemons = state.filteredPokemons;
+      const allPokemons = state.pokemons;
       const filterTypes = allPokemons.filter(
         (poke) =>
           poke.types[0].name === action.payload ||
@@ -59,41 +63,41 @@ function rootReducer(state = initialState, action) {
       );
       return {
         ...state,
-        pokemons: filterTypes,
+        filteredPokemons: filterTypes,
       };
 
     case FILTER_CREATES:
-      const filterCreated = state.filteredPokemons.filter((p) => p.created);
+      const filterCreated = state.pokemons.filter((p) => p.created);
       return {
         ...state,
-        pokemons: filterCreated,
+        filteredPokemons: filterCreated,
       };
 
     case RESTORE_POKEMONS:
       return {
         ...state,
-        pokemons: state.filteredPokemons,
+        filteredPokemons: state.pokemons,
       };
 
     case ORDER_NAME:
       let sortPoke = [];
+      let toOrder = state.filteredPokemons;
       if (action.payload === 'ascending') {
-        sortPoke = state.pokemons.sort((a, b) => {
+        sortPoke = toOrder.sort((a, b) => {
           if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
           if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
           return 0;
         });
       } else {
-        sortPoke = state.pokemons.sort((a, b) => {
+        sortPoke = toOrder.sort((a, b) => {
           if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
           if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
           return 0;
         });
       }
-      console.log(sortPoke);
       return {
         ...state,
-        pokemons: sortPoke,
+        filteredPokemons: sortPoke,
       };
 
     default:

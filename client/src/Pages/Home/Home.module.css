@@ -2,7 +2,7 @@
   display: flex;
   position: sticky;
   flex-direction: column;
-  background-image: url('../../assets/bg1.jpg');
+  background-image: url('../../assets/backgrounds/bg1.jpg');
   background-size: cover;
   background-attachment: fixed;
   height: 100%;
@@ -19,7 +19,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  width: 95%;
 }
 
 .searchFilters{

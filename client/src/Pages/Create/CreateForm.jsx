@@ -11,11 +11,14 @@ import {
 } from '../../redux/actions/actions';
 import styles from './CreateForm.module.css';
 import { useNavigate } from 'react-router-dom';
+import PokeCraft from '../../components/PokeCraft/PokeCraft';
+import ErrorCraft from '../../components/ErrorCraft/ErrorCraft';
 
 const Create = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const allTypes = useSelector((state) => state.allTypes);
+  const allPokes = useSelector((state) => state.pokemons);
 
   const [input, setInput] = useState({
     name: '',
@@ -42,7 +45,6 @@ const Create = () => {
         [e.target.name]: e.target.value,
       })
     );
-    console.log(error);
   };
 
   const handleSelect = (e) => {
@@ -71,32 +73,41 @@ const Create = () => {
         })
       );
     }
-    console.log(error);
-    console.log(input.types);
   };
 
   useEffect(() => {
     dispatch(getTypes());
   }, [dispatch]);
 
-  const handleSubmit = (e) => {
+  let [crafting, setCrafing] = useState(false);
+  let [errorCraft, setErrorCraft] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (Object.keys(error).length === 0 && input.name.length) {
       dispatch(postPokemon(input));
-      dispatch(getAllPokemons());
-      alert('Pokemon created successfuly!');
-      setInput({
-        name: '',
-        hp: '',
-        attack: '',
-        defense: '',
-        speed: '',
-        weight: '',
-        height: '',
-        types: [],
-      });
-      navigate('/pokemons');
+      setCrafing(true);
+      let result = await dispatch(getAllPokemons());
+      setCrafing(false);
+
+      console.log(result);
+      if (allPokes.length === result.payload.length) {
+        setErrorCraft(true);
+      } else {
+        console.log('pokemon creado OK');
+        setInput({
+          name: '',
+          hp: '',
+          attack: '',
+          defense: '',
+          speed: '',
+          weight: '',
+          height: '',
+          types: [],
+        });
+        navigate('/pokemons');
+      }
     } else {
       alert('Check the Data entered');
     }
@@ -114,9 +125,8 @@ const Create = () => {
 
   return (
     <div className={styles.mainContainer}>
-      {/* <div className={styles.title}>
-        <h3>CREATE YOUR POKEMON!</h3>
-      </div> */}
+      {crafting ? <PokeCraft /> : null}
+      {errorCraft ? <ErrorCraft setErrorCraft={setErrorCraft} /> : null}
       <div className={styles.container}>
         <div className={styles.containerImage}>
           <div className={styles.containerNewImage}>

@@ -4,7 +4,7 @@
   height: 90vh;
   width: 100%;
   overflow: hidden;
-  background-image: url('../../assets/bg1.jpg');
+  background-image: url('../../assets/backgrounds/bg1.jpg');
   background-size: cover;
   background-attachment: fixed;
 }

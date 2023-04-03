@@ -2,8 +2,18 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import logo from '../../assets/logo.png';
+import { useDispatch } from 'react-redux';
+import { restorePokemons } from '../../redux/actions/actions';
+
 
 const Navbar = () => {
+  
+  const dispatch = useDispatch();
+  
+  const handleReset = () => {
+        dispatch(restorePokemons());
+  }
+
   return (
     <nav className={styles.container}>
       <div>
@@ -11,14 +21,14 @@ const Navbar = () => {
           <img src={logo} alt='logo' className={styles.logo} />
         </Link>
       </div>
-      <a
-        href='/pokemons'
+      <Link
+        to='/pokemons'
         style={{ textDecoration: 'none', color: 'black' }}
       >
-        <div className={styles.links}>
+        <div className={styles.links} onClick={handleReset}>
           <p>HOME</p>
         </div>
-      </a>
+      </Link>
       <NavLink
         to='/create'
         style={{ textDecoration: 'none', color: 'black' }}
