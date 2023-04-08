@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getPokemonDetails } from '../../redux/actions/actions.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  deletePokemon,
+  getAllPokemons,
+  getPokemonDetails,
+} from '../../redux/actions/actions.js';
 import styles from './Details.module.css';
 import { TYPES, IMGTYPES, STATS } from '../../constants/types.js';
 import Loader from '../../components/Loader/Loader.jsx';
@@ -9,6 +13,7 @@ import deleteImg from '../../assets/extras/delete.png';
 
 const Details = () => {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -26,7 +31,11 @@ const Details = () => {
     }
   }, [pokemon.types]);
 
-  console.log(pokemon);
+  const handleDelete = (id) => {
+    dispatch(deletePokemon(id));
+    //dispatch(getAllPokemons());
+    navigate('/pokemons');
+  };
 
   return (
     <div>
@@ -36,12 +45,14 @@ const Details = () => {
             {/* Contenedor Cadena de Evolucion */}
             <div className={styles.containerEvo}>
               {pokemon.created ? (
-                <div>
-                  <h3>CUSTOM POKEMON</h3>
-                  <div className={styles.containerDelete}>
-                    <h4>DELETE </h4>
-                    <img src={deleteImg} alt='delete' className={styles.deleteImg} />
-                  </div>
+                <div className={styles.containerDelete}>
+                  <h5>DELETE POKEMON </h5>
+                  <img
+                    src={deleteImg}
+                    alt='delete'
+                    className={styles.deleteImg}
+                    onClick={()=>handleDelete(pokemon.id)}
+                  />
                 </div>
               ) : (
                 <h3>POKEMON FAMILY</h3>

@@ -5,7 +5,6 @@ import { NEWPOKES } from '../../constants/newPokes';
 import { IMGTYPES } from '../../constants/types';
 import validations from '../../constants/validations';
 import {
-  getAllPokemons,
   getTypes,
   postPokemon,
 } from '../../redux/actions/actions';
@@ -18,7 +17,6 @@ const Create = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const allTypes = useSelector((state) => state.allTypes);
-  const allPokes = useSelector((state) => state.pokemons);
 
   const [input, setInput] = useState({
     name: '',
@@ -32,6 +30,7 @@ const Create = () => {
     types: [],
   });
 
+  const [showError, setShowError] = useState(false);
   const [error, setError] = useState({});
 
   const handleInput = (e) => {
@@ -86,15 +85,9 @@ const Create = () => {
     e.preventDefault();
 
     if (Object.keys(error).length === 0 && input.name.length) {
-      dispatch(postPokemon(input));
-      setCrafing(true);
-      let result = await dispatch(getAllPokemons());
-      setCrafing(false);
-
-      console.log(result);
-      if (allPokes.length === result.payload.length) {
-        setErrorCraft(true);
-      } else {
+      try {
+        setCrafing(true);
+        await dispatch(postPokemon(input));
         console.log('pokemon creado OK');
         setInput({
           name: '',
@@ -106,10 +99,17 @@ const Create = () => {
           height: '',
           types: [],
         });
+        setCrafing(false);
         navigate('/pokemons');
+      } catch (error) {
+        setCrafing(false);
+        setError({ name: 'THIS POKEMON ALREADY EXISTS' });
+        setErrorCraft(true);
       }
+
     } else {
-      alert('Check the Data entered');
+      setShowError(true);
+      setErrorCraft(true);
     }
   };
 
@@ -126,7 +126,7 @@ const Create = () => {
   return (
     <div className={styles.mainContainer}>
       {crafting ? <PokeCraft /> : null}
-      {errorCraft ? <ErrorCraft setErrorCraft={setErrorCraft} /> : null}
+      {errorCraft ? <ErrorCraft setErrorCraft={setErrorCraft} error={error} /> : null}
       <div className={styles.container}>
         <div className={styles.containerImage}>
           <div className={styles.containerNewImage}>
@@ -144,6 +144,7 @@ const Create = () => {
             ))}
           </div>
         </div>
+
         <div className={styles.containerData}>
           <div className={styles.containerForm}>
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -162,11 +163,13 @@ const Create = () => {
                         value={input.name}
                         onChange={handleInput}
                         className={styles.nameInput}
-                        style={error.name ? { background: 'red' } : null}
+                        style={
+                          error.name && showError ? { background: 'red' } : null
+                        }
                       />
                     </div>
                     <div className={styles.error}>
-                      {error.name && <h6>{error.name}</h6>}
+                      {error.name && showError && <h6>{error.name}</h6>}
                     </div>
                   </div>
                   <div className={styles.stat}>
@@ -182,7 +185,11 @@ const Create = () => {
                           id='height'
                           onChange={handleInput}
                           className={styles.input}
-                          style={error.height ? { background: 'red' } : null}
+                          style={
+                            error.height && showError
+                              ? { background: 'red' }
+                              : null
+                          }
                         />
                         <input
                           type='range'
@@ -196,7 +203,7 @@ const Create = () => {
                         ></input>
                       </div>
                       <div className={styles.error}>
-                        {error.height && <h6>{error.height}</h6>}
+                        {error.height && showError && <h6>{error.height}</h6>}
                       </div>
                     </div>
                   </div>
@@ -213,7 +220,11 @@ const Create = () => {
                           id='weight'
                           onChange={handleInput}
                           className={styles.input}
-                          style={error.weight ? { background: 'red' } : null}
+                          style={
+                            error.weight && showError
+                              ? { background: 'red' }
+                              : null
+                          }
                         />
                         <input
                           type='range'
@@ -227,7 +238,7 @@ const Create = () => {
                         ></input>
                       </div>
                       <div className={styles.error}>
-                        {error.weight && <h6>{error.weight}</h6>}
+                        {error.weight && showError && <h6>{error.weight}</h6>}
                       </div>
                     </div>
                   </div>
@@ -247,7 +258,9 @@ const Create = () => {
                           id='hp'
                           onChange={handleInput}
                           className={styles.input}
-                          style={error.hp ? { background: 'red' } : null}
+                          style={
+                            error.hp && showError ? { background: 'red' } : null
+                          }
                         />
                         <input
                           type='range'
@@ -261,7 +274,7 @@ const Create = () => {
                         ></input>
                       </div>
                       <div className={styles.error}>
-                        {error.hp && <h6>{error.hp}</h6>}
+                        {error.hp && showError && <h6>{error.hp}</h6>}
                       </div>
                     </div>
                   </div>
@@ -278,7 +291,11 @@ const Create = () => {
                           id='attack'
                           onChange={handleInput}
                           className={styles.input}
-                          style={error.attack ? { background: 'red' } : null}
+                          style={
+                            error.attack && showError
+                              ? { background: 'red' }
+                              : null
+                          }
                         />
                         <input
                           type='range'
@@ -292,7 +309,7 @@ const Create = () => {
                         ></input>
                       </div>
                       <div className={styles.error}>
-                        {error.attack && <h6>{error.attack}</h6>}
+                        {error.attack && showError && <h6>{error.attack}</h6>}
                       </div>
                     </div>
                   </div>
@@ -309,7 +326,11 @@ const Create = () => {
                           id='defense'
                           onChange={handleInput}
                           className={styles.input}
-                          style={error.defense ? { background: 'red' } : null}
+                          style={
+                            error.defense && showError
+                              ? { background: 'red' }
+                              : null
+                          }
                         />
                         <input
                           type='range'
@@ -323,7 +344,7 @@ const Create = () => {
                         ></input>
                       </div>
                       <div className={styles.error}>
-                        {error.defense && <h6>{error.defense}</h6>}
+                        {error.defense && showError && <h6>{error.defense}</h6>}
                       </div>
                     </div>
                   </div>
@@ -340,7 +361,11 @@ const Create = () => {
                           id='speed'
                           onChange={handleInput}
                           className={styles.input}
-                          style={error.speed ? { background: 'red' } : null}
+                          style={
+                            error.speed && showError
+                              ? { background: 'red' }
+                              : null
+                          }
                         />
                         <input
                           type='range'
@@ -354,7 +379,7 @@ const Create = () => {
                         ></input>
                       </div>
                       <div className={styles.error}>
-                        {error.speed && <h6>{error.speed}</h6>}
+                        {error.speed && showError && <h6>{error.speed}</h6>}
                       </div>
                     </div>
                   </div>
@@ -386,7 +411,7 @@ const Create = () => {
                     ))}
                 </div>
                 <div className={styles.error}>
-                  {error.types && <h6>{error.types}</h6>}
+                  {error.types && showError && <h6>{error.types}</h6>}
                 </div>
                 <div style={{ display: 'none' }}>
                   <input

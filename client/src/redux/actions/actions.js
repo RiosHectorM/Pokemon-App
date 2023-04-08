@@ -8,6 +8,7 @@ import {
   RESTORE_POKEMONS,
   FILTER_CREATES,
   ORDER_NAME,
+  DELETE_POKEMON,
 } from './types.js';
 
 export const getAllPokemons = () => {
@@ -24,6 +25,7 @@ export const getAllPokemons = () => {
 };
 
 export const getPokemonDetails = (id) => {
+  console.log(id)
   return async function (dispatch) {
     return fetch(`http://localhost:3001/pokemons/${id}`)
       .then((response) => response.json())
@@ -73,11 +75,24 @@ export const postPokemon = (values) => {
         dispatch({
           type: POST_POKEMON,
           payload: json,
+          types: input.types,
         })
       );
   };
 };
 
+export const deletePokemon = (id) => {
+  return async (dispatch) => {
+    try {
+      await fetch(`http://localhost:3001/pokemons/delete/${id}`, {
+        method: 'DELETE',
+      });
+      dispatch({ type: DELETE_POKEMON, payload: id });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 
 export const searchByName = (name) => {
   return async function (dispatch) {
@@ -99,12 +114,13 @@ export const filterByTypes = (value) => {
   };
 };
 
-export const restorePokemons = (value) => {
+export const restorePokemons = () => {
   return {
     type: RESTORE_POKEMONS,
-    payload: value,
+    payload: null,
   };
 };
+
 export const filterPokeCreated = (value) => {
   return {
     type: FILTER_CREATES,
@@ -118,4 +134,3 @@ export const orderName = (value) => {
     payload: value,
   };
 };
-

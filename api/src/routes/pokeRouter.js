@@ -15,9 +15,8 @@ const searchBDbyId = async (id) => {
       through: { attributes: [] },
     },
   });
-
   if (pokeName) return pokeName;
-  return null;
+  return [];
 };
 
 const searchBD = async (name) => {
@@ -48,51 +47,46 @@ router.get('/', async (req, res) => {
       res.status(400).send([]);
     }
   } else {
-    let allPokeApi = await getPokeApi();
-    let allPokeBD = await getDBData();
-    let allPoke = allPokeBD.concat(allPokeApi);
-    res.status(200).send(allPoke);
+    try {
+      let allPokeApi = await getPokeApi();
+      let allPokeBD = await getDBData();
+      let allPoke = allPokeBD.concat(allPokeApi);
+      res.status(200).send(allPoke);
+    } catch (error) {
+      res.status(400).redirect('/');
+    }
   }
 });
 
 router.get('/:idPokemon', async (req, res) => {
+  const { idPokemon } = req.params;
+  let RegExpNumber = /^([0-9])*$/;
+  let RegExpString = /^[a-zA-ZáéíóúüñÑ]*$/;
+  let pokeForId = [];
+
   try {
-    const { idPokemon } = req.params;
-    let pokeForId = await getPoke(idPokemon);
-    if (pokeForId.length === 0) {
+    console.log(RegExpNumber.test(idPokemon));
+    console.log(RegExpString.test(idPokemon));
+    if (RegExpNumber.test(idPokemon) || RegExpString.test(idPokemon)) {
+      pokeForId = await getPoke(idPokemon);
+    } else {
       pokeForId = await searchBDbyId(idPokemon);
     }
-
     res.status(200).json(pokeForId);
   } catch (error) {
-    res.status(400).send([]);
+    console.log('Api Error, retry in progress ');
+    res.status(400).redirect(`/pokemons/${idPokemon}`);
   }
 });
 
 router.post('/', async (req, res) => {
-  const { name, hp, attack, defense, speed, height, weight, image, types } =
+  let { name, hp, attack, defense, speed, height, weight, image, types } =
     req.body;
 
-  //Valida valores * requeridos
-  if (!name || !hp || !attack || !defense || !image) {
-    return res.status(400).json({
-      error: `Missing Values!`,
-    });
-  }
-
-  //Valida que al menos el pokemon creado tenga un tipo seleccionado
-  let arrType = [];
-  types.map((e) => arrType.push(e));
-  if (!arrType.length) {
-    return res.status(400).json({ error: `Select Type of Pokemon` });
-  }
-
+  name = name.toLowerCase();
   //Valida que no exista un pokemon personalizado con el mismo nombre
   const exists = await Pokemon.findOne({ where: { name: name } });
-  if (exists)
-    return res.status(400).send(null);
-  
-  //  return res.status(400).send({ error: `Pokemon ${name} already exists` });
+  if (exists) return res.status(400).send(null);
 
   //superadas las validaciones crea el nuevo pokemon personalizado
   try {
@@ -115,8 +109,23 @@ router.post('/', async (req, res) => {
     res.status(201).send(newPoke);
   } catch (err) {
     console.log(err);
+    res.status(400).send(null);
   }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Pokemon.destroy({
+      where: {
+        id: id,
+      },
+      force: true,
+    });
+  } catch (error) {
+    console.log('error');
+    res.status(400).send({ error: 'Delete Fail' });
+  }
+});
 
 module.exports = router;

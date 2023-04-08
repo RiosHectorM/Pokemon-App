@@ -1,6 +1,6 @@
 export default function validations(input) {
   let error = {};
-  let RegExpString = /^[a-zA-Z\s]*$/;
+  let RegExpString = /^[a-zA-ZáéíóúüñÑ]*$/;
   let RegExpNumber = /^([0-9])*$/;
 
   //Validations of Name Imput

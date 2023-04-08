@@ -4,7 +4,6 @@ import NotFound from '../../components/NotFound/NotFound';
 import Card from '../../components/Card/Card.jsx';
 import styles from './Home.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
-import Loader from '../../components/Loader/Loader.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import Filters from '../../components/Filters/Filters.jsx';
 import { restorePokemons } from '../../redux/actions/actions';
@@ -15,19 +14,25 @@ const Home = () => {
   useEffect(() => {
     dispatch(restorePokemons());
     setCurrentPage(1);
-  },[]);
+  }, [dispatch]);
 
-  let allPokes = [];
-  allPokes = useSelector((state) => state.filteredPokemons);
+  let allPokes = useSelector((state) => state.filteredPokemons);
 
   let [order, setOrder] = useState('');
+  let [currentPage, setCurrentPage] = useState(1);
+  let [currentPokemons, setCurrentPokemons] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 12;
-  const lastPokemon = currentPage * pokemonsPerPage;
-  const firstPokemon = lastPokemon - pokemonsPerPage;
-  const currentPokemons = allPokes.slice(firstPokemon, lastPokemon);
+
   const paginated = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    const lastPokemon = currentPage * pokemonsPerPage;
+    const firstPokemon = lastPokemon - pokemonsPerPage;
+    setCurrentPokemons(allPokes.slice(firstPokemon, lastPokemon));
+  }, [allPokes, currentPage, order]);
+
+  console.log(currentPokemons);
 
   return (
     <div className={styles.containerBody}>
@@ -48,24 +53,23 @@ const Home = () => {
           paginated={paginated}
         />
         <div className={styles.cardContainer}>
-          {currentPokemons.length ? (
-            currentPokemons[0]?.hasOwnProperty('id') ? (
-              currentPokemons.map((pokemon) => (
-                <Card
-                  key={pokemon.id}
-                  id={pokemon.id}
-                  name={pokemon.name}
-                  image={pokemon.image}
-                  types={pokemon.types}
-                />
-              ))
-            ) : (
-              <NotFound />
-            )
-          ) : (
-            <Loader />
-          )}
+          {currentPokemons[0]?.hasOwnProperty('id') ? (
+          currentPokemons.map((pokemon) => (
+          <Card
+            key={pokemon.id}
+            id={pokemon.id}
+            name={pokemon.name}
+            image={pokemon.image}
+            types={pokemon.types}
+          />
+          )) ) : (
+          <NotFound />) }
         </div>
+        <Pagination
+          pokemonsPerPage={pokemonsPerPage}
+          allPokemons={allPokes.length}
+          paginated={paginated}
+        />
       </div>
     </div>
   );

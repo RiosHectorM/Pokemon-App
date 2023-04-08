@@ -96,7 +96,6 @@
   100% {  }
 }
 
-/*/ ////////////////*/
 
 .containerInf {
   display: flex;
@@ -203,4 +202,5 @@
 
 .deleteImg{
   width: 80px;
+  z-index: 100;
 }

@@ -1,0 +1,136 @@
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/backgrounds/htpgame.jpg');
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  width: 90%;
+  height: 80%;
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 10px double rgb(255, 255, 255);
+  justify-content: space-around;
+  align-items: center;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.htp {
+  display: flex;
+  height: 80%;
+  width: 45%;
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 10px double rgb(255, 255, 255);
+  justify-content: center;
+  align-items: center;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.imageRandom {
+  height: 300px;
+  filter: brightness(0);
+}
+
+.imageResult{
+  height: 200px;
+  width: 200px;
+}
+
+.titleResult{
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+
+.titleImage{
+  position: absolute;
+  top: 0;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+
+.options{
+  display: flex;
+  height: 80%;
+  width: 45%;
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 10px double rgb(255, 255, 255);
+  justify-content: center;
+  align-items: center;
+}
+
+.namesOptions{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonName{
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 200px;
+  height: 45px;
+  background: red;
+  color: white;
+  margin: 5px;
+  border-radius: 20px;
+  font-size: 12px;
+  box-shadow: inset 0 0 20px #000;
+  border: 1px solid #000;
+}
+
+.buttonName:hover {
+  animation: backgr 0.7s both;
+}
+
+@keyframes backgr {
+  0% {
+    background: white;
+    color: red;
+    box-shadow: 0;
+    box-shadow: 2px 2px 2px 2px rgba(255, 255, 255, 0.6),
+      -2px -2px 2px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  100% {
+    background: rgb(255, 0, 0);
+    background: linear-gradient(
+      346deg,
+      rgba(255, 0, 0, 1) 32%,
+      rgba(255, 255, 255, 0.5214460784313726) 50%,
+      rgba(0, 0, 0, 1) 68%
+    );
+    color: white;
+    box-shadow: 10px 12px 14px 14px rgba(255, 255, 255, 0.6),
+      -10px -15px 9px 10px rgba(0, 0, 0, 0.6);
+  }
+}

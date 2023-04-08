@@ -8,6 +8,7 @@ import {
   FILTER_TYPES,
   FILTER_CREATES,
   ORDER_NAME,
+  DELETE_POKEMON,
 } from '../actions/types.js';
 
 const initialState = {
@@ -33,13 +34,22 @@ function rootReducer(state = initialState, action) {
       };
 
     case POST_POKEMON:
-      console.log(action.payload);
-
-      console.log(state.filteredPokemons);
+      action.payload.types = action.types[0].map((type) => ({ name: type }));
       return {
         ...state,
-        pokemons: [...state.pokemons, action.payload],
-        filteredPokemons: [...state.filteredPokemons, action.payload],
+        pokemons: [action.payload, ...state.pokemons],
+        filteredPokemons: [action.payload, ...state.filteredPokemons],
+      };
+
+    case DELETE_POKEMON:
+      const toDelete = state.pokemons;
+      console.log(toDelete.length);
+      const pokeUpdates = toDelete.filter((poke) => poke.id === action.payload);
+      console.log(pokeUpdates.length);
+      return {
+        ...state,
+        pokemons: pokeUpdates,
+        filteredPokemons: pokeUpdates,
       };
 
     case SEARCH_POKEMON:
@@ -76,6 +86,7 @@ function rootReducer(state = initialState, action) {
     case RESTORE_POKEMONS:
       return {
         ...state,
+        pokemons: state.pokemons,
         filteredPokemons: state.pokemons,
       };
 
@@ -84,16 +95,18 @@ function rootReducer(state = initialState, action) {
       let toOrder = state.filteredPokemons;
       if (action.payload === 'ascending') {
         sortPoke = toOrder.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-          if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+          if (a.name > b.name) return 1;
+          if (a.name < b.name) return -1;
           return 0;
         });
-      } else {
+      }else if (action.payload === 'descending') {
         sortPoke = toOrder.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
-          if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+          if (a.name > b.name) return -1;
+          if (a.name < b.name) return 1;
           return 0;
-        });
+        })
+      } else {
+        sortPoke = toOrder
       }
       return {
         ...state,

@@ -7,6 +7,7 @@ import LandingPage from './Pages/Landing/Landing.jsx';
 import Home from './Pages/Home/Home.jsx';
 import Details from './Pages/Details/Details';
 import CreateForm from './Pages/Create/CreateForm.jsx';
+import HTPGame from './Pages/HTPGame/HTPGame';
 
 import './App.css'
 
@@ -20,6 +21,7 @@ function App() {
         <Route exact path='/pokemons' element={<Home />} />
         <Route path='/pokemons/:id' element={<Details />} />
         <Route path='/create' element={<CreateForm />} />
+        <Route path='/play' element={<HTPGame />} />
         <Route path='*' element={<fourHundredFour />} />
       </Routes>
     </div>

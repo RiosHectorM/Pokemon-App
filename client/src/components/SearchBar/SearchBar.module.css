@@ -20,6 +20,14 @@
   border-radius: 50px;
 }
 
+.errorText{
+  text-transform: uppercase;
+  color: red;  
+  background: white;
+  border-radius: 30px;
+  padding: 10px;
+}
+
 .search {
   border-radius: 20px 0 0 20px;
   padding-left: 20px;
@@ -66,6 +74,10 @@
   padding-top: 20px;
   width: 40px;
   height: auto;
+}
+.closerDiv{
+  display: flex;
+  align-items: start;
 }
 
 .options {

@@ -13,10 +13,6 @@ module.exports = (sequelize) => {
         unique: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      idPoke: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,

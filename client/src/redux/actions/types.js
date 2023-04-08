@@ -8,3 +8,4 @@ export const FILTER_CREATES = 'FILTER_CREATES';
 export const RESTORE_POKEMONS = 'RESTORE_POKEMONS';
 export const ORDER_NAME = 'ORDER_NAME';
 export const EVO_CHAIN = 'EVO_CHAIN';
+export const DELETE_POKEMON = 'DELETE_POKEMON';
