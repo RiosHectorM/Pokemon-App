@@ -22,6 +22,10 @@ const HTPGame = () => {
   let [arrayRandom, setArrayRandom] = useState([]);
 
   const handleClickRandom = () => {
+    if (result) {
+      let asd = document.getElementById('imagenPokemon');
+      asd.setAttribute('src', search);
+    }
     setShowImage(false);
     setShowPlay(false);
     setShowOptions(true);
@@ -68,6 +72,7 @@ const HTPGame = () => {
                   src={result.image}
                   alt='imagePoke'
                   className={styles.imageRandom}
+                  id='imagenPokemon'
                   style={
                     showImage
                       ? { filter: 'brightness(1)' }

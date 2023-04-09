@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { NEWPOKES } from '../../constants/newPokes';
 import { IMGTYPES } from '../../constants/types';
 import validations from '../../constants/validations';
-import {
-  getTypes,
-  postPokemon,
-} from '../../redux/actions/actions';
+import { postPokemon } from '../../redux/actions/actions';
 import styles from './CreateForm.module.css';
 import { useNavigate } from 'react-router-dom';
 import PokeCraft from '../../components/PokeCraft/PokeCraft';
@@ -74,10 +71,6 @@ const Create = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(getTypes());
-  }, [dispatch]);
-
   let [crafting, setCrafing] = useState(false);
   let [errorCraft, setErrorCraft] = useState(false);
 
@@ -88,7 +81,6 @@ const Create = () => {
       try {
         setCrafing(true);
         await dispatch(postPokemon(input));
-        console.log('pokemon creado OK');
         setInput({
           name: '',
           hp: '',
@@ -106,7 +98,6 @@ const Create = () => {
         setError({ name: 'THIS POKEMON ALREADY EXISTS' });
         setErrorCraft(true);
       }
-
     } else {
       setShowError(true);
       setErrorCraft(true);
@@ -126,7 +117,9 @@ const Create = () => {
   return (
     <div className={styles.mainContainer}>
       {crafting ? <PokeCraft /> : null}
-      {errorCraft ? <ErrorCraft setErrorCraft={setErrorCraft} error={error} /> : null}
+      {errorCraft ? (
+        <ErrorCraft setErrorCraft={setErrorCraft} error={error} />
+      ) : null}
       <div className={styles.container}>
         <div className={styles.containerImage}>
           <div className={styles.containerNewImage}>
@@ -197,7 +190,7 @@ const Create = () => {
                           value={input.height}
                           onChange={handleInput}
                           min='0'
-                          max='50'
+                          max='100'
                           step='1'
                           className={styles.range}
                         ></input>
@@ -232,7 +225,7 @@ const Create = () => {
                           value={input.weight}
                           onChange={handleInput}
                           min='0'
-                          max='1000'
+                          max='5000'
                           step='1'
                           className={styles.range}
                         ></input>
@@ -268,7 +261,7 @@ const Create = () => {
                           value={input.hp}
                           onChange={handleInput}
                           min='0'
-                          max='150'
+                          max='250'
                           step='1'
                           className={styles.range}
                         ></input>
@@ -338,7 +331,7 @@ const Create = () => {
                           value={input.defense}
                           onChange={handleInput}
                           min='0'
-                          max='150'
+                          max='180'
                           step='1'
                           className={styles.range}
                         ></input>

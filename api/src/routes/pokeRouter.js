@@ -65,8 +65,6 @@ router.get('/:idPokemon', async (req, res) => {
   let pokeForId = [];
 
   try {
-    console.log(RegExpNumber.test(idPokemon));
-    console.log(RegExpString.test(idPokemon));
     if (RegExpNumber.test(idPokemon) || RegExpString.test(idPokemon)) {
       pokeForId = await getPoke(idPokemon);
     } else {
@@ -122,6 +120,7 @@ router.delete('/delete/:id', async (req, res) => {
       },
       force: true,
     });
+    res.status(200).send({id: id});
   } catch (error) {
     console.log('error');
     res.status(400).send({ error: 'Delete Fail' });

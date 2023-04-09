@@ -1,38 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import NotFound from '../../components/NotFound/NotFound';
 import Card from '../../components/Card/Card.jsx';
 import styles from './Home.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import Filters from '../../components/Filters/Filters.jsx';
-import { restorePokemons } from '../../redux/actions/actions';
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(restorePokemons());
-    setCurrentPage(1);
-  }, [dispatch]);
-
   let allPokes = useSelector((state) => state.filteredPokemons);
 
   let [order, setOrder] = useState('');
-  let [currentPage, setCurrentPage] = useState(1);
+  let [currentPage, setCurrentPage] = useState(0);
   let [currentPokemons, setCurrentPokemons] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
 
   const pokemonsPerPage = 12;
 
-  const paginated = (pageNumber) => setCurrentPage(pageNumber);
-
   useEffect(() => {
-    const lastPokemon = currentPage * pokemonsPerPage;
-    const firstPokemon = lastPokemon - pokemonsPerPage;
-    setCurrentPokemons(allPokes.slice(firstPokemon, lastPokemon));
+    setTotalPage(Math.ceil(allPokes.length / pokemonsPerPage, 1));
+    setCurrentPokemons(
+      [...allPokes].splice(currentPage * pokemonsPerPage, pokemonsPerPage)
+    );
   }, [allPokes, currentPage, order]);
-
-  console.log(currentPokemons);
 
   return (
     <div className={styles.containerBody}>
@@ -49,28 +39,38 @@ const Home = () => {
       <div className={styles.column}>
         <Pagination
           pokemonsPerPage={pokemonsPerPage}
-          allPokemons={allPokes.length}
-          paginated={paginated}
+          allPokes={allPokes}
+          currentPokemons={currentPokemons}
+          setCurrentPokemons={setCurrentPokemons}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPage={totalPage}
         />
         <div className={styles.cardContainer}>
           {currentPokemons[0]?.hasOwnProperty('id') ? (
-          currentPokemons.map((pokemon) => (
-          <Card
-            key={pokemon.id}
-            id={pokemon.id}
-            name={pokemon.name}
-            image={pokemon.image}
-            types={pokemon.types}
-          />
-          )) ) : (
-          <NotFound />) }
+            currentPokemons.map((pokemon) => (
+              <Card
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                image={pokemon.image}
+                types={pokemon.types}
+              />
+            ))
+          ) : (
+            <NotFound />
+          )}
         </div>
-        <Pagination
-          pokemonsPerPage={pokemonsPerPage}
-          allPokemons={allPokes.length}
-          paginated={paginated}
-        />
       </div>
+      <Pagination
+        pokemonsPerPage={pokemonsPerPage}
+        allPokes={allPokes}
+        currentPokemons={currentPokemons}
+        setCurrentPokemons={setCurrentPokemons}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPage={totalPage}
+      />
     </div>
   );
 };

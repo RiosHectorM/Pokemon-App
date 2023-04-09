@@ -21,6 +21,8 @@
   border: 10px double rgb(255, 255, 255);
   justify-content: space-around;
   align-items: center;
+  overflow: hidden;
+  animation: imgIN 2s normal both;
 }
 
 .background {
@@ -42,6 +44,7 @@
   border: 10px double rgb(255, 255, 255);
   justify-content: center;
   align-items: center;
+  animation: imgIN 2s normal both;
 }
 
 .center{
@@ -85,6 +88,7 @@
   border: 10px double rgb(255, 255, 255);
   justify-content: center;
   align-items: center;
+  animation: imgIN 2s normal both;
 }
 
 .namesOptions{
@@ -132,5 +136,15 @@
     color: white;
     box-shadow: 10px 12px 14px 14px rgba(255, 255, 255, 0.6),
       -10px -15px 9px 10px rgba(0, 0, 0, 0.6);
+  }
+}
+
+
+@keyframes imgIN {
+  0% {
+    transform: translate(0, 0) scale(0);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
   }
 }

@@ -8,12 +8,11 @@
 .containerFloat {
   position: absolute;
   top: 50%;
-  left: 25%;
+  left: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60vw;
-  height: 60vh;
+  width: 80vw;
   z-index: 10;
   background: rgba(0, 0, 0, 0.5);
   -webkit-backdrop-filter: blur(20px);
@@ -162,4 +161,54 @@
 
 .pokeImage{
   width: 170px;
+}
+
+.columnOrder{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+
+.sortOrder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #000;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 3px solid rgb(255, 255, 255);
+}
+
+.sortOrder input{
+  display: none;
+}
+.sortOrder input:checked + label{
+  background: white;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.labelsOrder {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor: pointer;
+}
+
+.orderBy{
+  background: red;
+  margin: 10px;
+  border-radius: 20px;
+  padding: 0 10px;
 }

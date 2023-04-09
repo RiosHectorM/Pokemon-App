@@ -42,10 +42,8 @@ function rootReducer(state = initialState, action) {
       };
 
     case DELETE_POKEMON:
-      const toDelete = state.pokemons;
-      console.log(toDelete.length);
-      const pokeUpdates = toDelete.filter((poke) => poke.id === action.payload);
-      console.log(pokeUpdates.length);
+      const toDelete = state.filteredPokemons;
+      const pokeUpdates = toDelete.filter((poke) => poke.id !== action.payload);
       return {
         ...state,
         pokemons: pokeUpdates,
@@ -93,20 +91,21 @@ function rootReducer(state = initialState, action) {
     case ORDER_NAME:
       let sortPoke = [];
       let toOrder = state.filteredPokemons;
-      if (action.payload === 'ascending') {
+      let sortOrder = action.payload.sortOrder;
+      if (action.payload.order === 'ascending') {
         sortPoke = toOrder.sort((a, b) => {
-          if (a.name > b.name) return 1;
-          if (a.name < b.name) return -1;
+          if (a[sortOrder] > b[sortOrder]) return 1;
+          if (a[sortOrder] < b[sortOrder]) return -1;
           return 0;
         });
-      }else if (action.payload === 'descending') {
+      } else if (action.payload.order === 'descending') {
         sortPoke = toOrder.sort((a, b) => {
-          if (a.name > b.name) return -1;
-          if (a.name < b.name) return 1;
+          if (a[sortOrder] > b[sortOrder]) return -1;
+          if (a[sortOrder] < b[sortOrder]) return 1;
           return 0;
-        })
+        });
       } else {
-        sortPoke = toOrder
+        sortPoke = toOrder;
       }
       return {
         ...state,

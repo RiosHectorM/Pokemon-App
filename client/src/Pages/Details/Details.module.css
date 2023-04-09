@@ -48,7 +48,7 @@
 
 /*////////////////////*/
 .progress {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 100px;
   align-items: center;
   padding-top: 5px;
@@ -63,7 +63,7 @@
   display: block;
   animation: load 3s normal forwards;
   box-shadow: 0 10px 40px -10px #fff;
-  border: 3px solid ;
+  border: 3px solid;
   border-radius: 100px;
   background: #ffffff;
   height: 25px;
@@ -71,7 +71,7 @@
   margin-left: 5px;
   margin-right: 5px;
 }
-.stats{
+.stats {
   margin-top: 5px;
   display: flex;
   justify-content: space-between;
@@ -87,21 +87,23 @@
   color: white;
 }
 
-.statsName{
+.statsName {
   width: 80px;
 }
 
 @keyframes load {
-  0% { width: 0; }
-  100% {  }
+  0% {
+    width: 0;
+  }
+  100% {
+  }
 }
-
 
 .containerInf {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -150,7 +152,6 @@
   border-radius: 80px 0 0 80px;
   text-align: center;
   min-width: 25%;
-
   animation: sliceINRight 2s normal both;
 }
 
@@ -195,12 +196,16 @@
   width: 95%;
 }
 
-.containerDelete{
+.containerDelete {
   display: flex;
   justify-content: center;
 }
 
-.deleteImg{
-  width: 80px;
-  z-index: 100;
+.deleteImg {
+  width: 50px;
+}
+
+.containerDelete:hover {
+  cursor: pointer;
+  color: red;
 }

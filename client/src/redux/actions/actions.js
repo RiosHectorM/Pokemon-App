@@ -25,7 +25,6 @@ export const getAllPokemons = () => {
 };
 
 export const getPokemonDetails = (id) => {
-  console.log(id)
   return async function (dispatch) {
     return fetch(`http://localhost:3001/pokemons/${id}`)
       .then((response) => response.json())
@@ -84,10 +83,17 @@ export const postPokemon = (values) => {
 export const deletePokemon = (id) => {
   return async (dispatch) => {
     try {
-      await fetch(`http://localhost:3001/pokemons/delete/${id}`, {
+      return fetch(`http://localhost:3001/pokemons/delete/${id}`, {
         method: 'DELETE',
-      });
-      dispatch({ type: DELETE_POKEMON, payload: id });
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          dispatch({
+            type: DELETE_POKEMON,
+            payload: json.id,
+          });
+        })
+        .catch((error) => console.log(error));
     } catch (error) {
       console.error(error);
     }
@@ -128,9 +134,9 @@ export const filterPokeCreated = (value) => {
   };
 };
 
-export const orderName = (value) => {
+export const orderName = (order, sortOrder) => {
   return {
     type: ORDER_NAME,
-    payload: value,
+    payload: { order, sortOrder },
   };
 };

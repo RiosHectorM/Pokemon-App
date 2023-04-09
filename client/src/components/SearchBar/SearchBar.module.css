@@ -20,9 +20,9 @@
   border-radius: 50px;
 }
 
-.errorText{
+.errorText {
   text-transform: uppercase;
-  color: red;  
+  color: red;
   background: white;
   border-radius: 30px;
   padding: 10px;
@@ -61,12 +61,12 @@
   border-radius: 30px;
 }
 
-.containerSearchGif{
+.containerSearchGif {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color:white;
+  color: white;
 }
 
 .imgClose {
@@ -75,9 +75,9 @@
   width: 40px;
   height: auto;
 }
-.closerDiv{
+.closerDiv {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .options {
@@ -87,7 +87,7 @@
   padding-right: 10px;
   border-radius: 20px;
   font-size: 12px;
-  box-shadow:  inset 0 0 20px #000;
+  box-shadow: inset 0 0 20px #000;
   border: 1px solid #000;
 }
 

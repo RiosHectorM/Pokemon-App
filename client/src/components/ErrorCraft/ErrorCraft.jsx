@@ -4,7 +4,6 @@ import fail from '../../assets/extras/fail.gif';
 import { useNavigate } from 'react-router-dom';
 
 const ErrorCraft = ({ setErrorCraft, error }) => {
-  console.log(error);
 
   const handleRetry = () => {
     setErrorCraft(false);

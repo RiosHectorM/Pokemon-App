@@ -14,7 +14,7 @@ const SearchBar = () => {
   let [load, setLoad] = useState(false);
   let [error, setError] = useState(false);
 
-  const RegExpString = /^[a-zA-ZáéíóúüñÑ]*$/;
+  const RegExpString = /^[a-zA-ZáéíóúüñÑ-]*$/;
 
   function handleInputChange(e) {
     if (!RegExpString.test(e.target.value)) {

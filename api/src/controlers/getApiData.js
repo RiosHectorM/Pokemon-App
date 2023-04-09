@@ -24,7 +24,7 @@ const pokeNameUrl = async (pokeArray, pokeCant, resultApi) => {
 const getPokeApi = async () => {
   try {
     let pokeArray = [];
-    const pokeCant = 150;
+    const pokeCant = 100;
     let resultApi = await pokeLoad('https://pokeapi.co/api/v2/pokemon');
 
     pokeArray = await pokeNameUrl(pokeArray, pokeCant, resultApi);
@@ -35,6 +35,12 @@ const getPokeApi = async () => {
           id: pokeData.data.id,
           name: pokeData.data.name,
           image: pokeData.data.sprites.other.home.front_default,
+          height: pokeData.data.height,
+          weight: pokeData.data.weight,
+          attack: pokeData.data.stats[1].base_stat,
+          defense: pokeData.data.stats[2].base_stat,
+          speed: pokeData.data.stats[5].base_stat,
+          hp: pokeData.data.stats[0].base_stat,
           types: pokeData.data.types?.map((p) => ({ name: p.type.name })),
         };
         return pokemon;
@@ -48,7 +54,7 @@ const getPokeApi = async () => {
       })
       .catch((reason) => {
         console.log('Array Poke Promisses Error');
-        return []
+        return [];
       });
   } catch (error) {
     return { error: 'Error in Data Poke response' };

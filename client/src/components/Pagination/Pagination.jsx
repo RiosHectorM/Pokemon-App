@@ -1,26 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Pagination.module.css';
 
-const Pagination = ({ pokemonsPerPage, allPokemons, paginated }) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(allPokemons / pokemonsPerPage); i++) {
-    pageNumbers.push(i);
+const Pagination = ({
+  pokemonsPerPage,
+  allPokes,
+  paginated,
+  currentPokemons,
+  setCurrentPokemons,
+  currentPage,
+  setCurrentPage,
+  totalPage,
+}) => {
+  const [datosPokes, setDatosPokes] = useState(allPokes);
+
+  const nextHandler = () => {
+    const totalElem = datosPokes.length;
+    const nextPage = currentPage + 1;
+    if (nextPage > totalPage) return;
+    const firstIndex = nextPage * pokemonsPerPage;
+    if (firstIndex >= totalElem) return;
+    setCurrentPokemons([...datosPokes].splice(firstIndex, pokemonsPerPage));
+    setCurrentPage(nextPage);
+  };
+
+  const prevHandler = () => {
+    const prevPage = currentPage - 1;
+    if (prevPage < 0) return;
+    const firstIndex = prevPage * pokemonsPerPage;
+    setCurrentPokemons([...datosPokes].splice(firstIndex, pokemonsPerPage));
+    setCurrentPage(prevPage);
+  };
+
+  if (currentPokemons.length === 0) {
+    prevHandler();
   }
+
+  if (datosPokes.length <= pokemonsPerPage * (currentPage + 1) + 1) {
+    nextHandler();
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.containerNumbers}>
-        {pageNumbers.length > 1 &&
-          pageNumbers.map((number) => (
-            <div key={number} className={styles.numbers}>
-              <button
-                onClick={() => paginated(number)}
-                className={styles.buttonNumber}
-              >
-                {number}
-              </button>
-            </div>
-          ))}
-      </div>
+      {allPokes.length > pokemonsPerPage && (
+        <div className={styles.buttonsContainer}>
+          <div className={styles.buttons}>
+            <button
+              onClick={prevHandler}
+              className={styles.buttonNumber}
+              style={currentPage + 1 === 1 ? { visibility: 'hidden' } : null}
+            >
+              PREV
+            </button>
+
+            <h3>
+              PAGE {currentPage + 1} / {totalPage}
+            </h3>
+            <button
+              onClick={nextHandler}
+              className={styles.buttonNumber}
+              style={
+                currentPage + 1 === totalPage ? { visibility: 'hidden' } : null
+              }
+            >
+              NEXT
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

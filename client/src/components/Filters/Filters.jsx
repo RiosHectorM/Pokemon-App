@@ -21,6 +21,12 @@ const Filters = ({ setCurrentPage, setOrder, order }) => {
   const [showFilters, setShowFilters] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
 
+  const [sortOrder, setSortOrder] = useState('name')
+
+  const handlerOptionChange = (e) => {
+    setSortOrder(e.target.value)
+  }
+
   useEffect(() => {
     dispatch(getTypes());
   }, [dispatch]);
@@ -28,25 +34,25 @@ const Filters = ({ setCurrentPage, setOrder, order }) => {
   const handlerAllPokemons = () => {
     dispatch(restorePokemons());
     //await dispatch(orderName(order));
-    setCurrentPage(1);
+    setCurrentPage(0);
   };
   const handlerFilterTypes = (e) => {
     dispatch(filterByTypes(e.target.value));
     dispatch(orderName(order));
-    setCurrentPage(1);
+    setCurrentPage(0);
     setShowFilters(false);
   };
   const handlerCreated = () => {
     dispatch(filterPokeCreated('created'));
     dispatch(orderName(order));
-    setCurrentPage(1);
+    setCurrentPage(0);
     setShowFilters(false);
   };
   const handlerOrderName = (e) => {
-    dispatch(orderName(e.target.value));
+    dispatch(orderName(e.target.value, sortOrder));
     setOrder(e.target.value);
     setShowOrder(false);
-    setCurrentPage(1);
+    setCurrentPage(0);
   };
 
   const showFiltersDiv = () => {
@@ -111,20 +117,122 @@ const Filters = ({ setCurrentPage, setOrder, order }) => {
       {showOrder && (
         <div className={styles.containerFloat}>
           <img src={asending} alt='ascending' className={styles.imgOrder1} />
-          <button
-            className={styles.buttonOrder}
-            value='ascending'
-            onClick={handlerOrderName}
-          >
-            Ascending
-          </button>
-          <button
-            className={styles.buttonOrder}
-            value='descending'
-            onClick={handlerOrderName}
-          >
-            Descending
-          </button>
+          <div className={styles.columnOrder}>
+            <h3>CHOOSE SORT ORDER</h3>
+            <div className={styles.sortOrder}>
+              <div>
+                <div className={styles.orderBy}>
+                  <input
+                    type='radio'
+                    name='orderSort'
+                    id='name'
+                    value='name'
+                    checked={sortOrder === 'name'}
+                    onChange={handlerOptionChange}
+                  />
+                  <label htmlFor='name' className={styles.labelsOrder}>
+                    NAME
+                  </label>
+                </div>
+                <div className={styles.orderBy}>
+                  <input
+                    type='radio'
+                    name='orderSort'
+                    id='height'
+                    value='height'
+                    checked={sortOrder === 'height'}
+                    onChange={handlerOptionChange}
+                  />
+                  <label htmlFor='height' className={styles.labelsOrder}>
+                    HEIGHT
+                  </label>
+                </div>
+                <div className={styles.orderBy}>
+                  <input
+                    type='radio'
+                    name='orderSort'
+                    id='weight'
+                    value='weight'
+                    checked={sortOrder === 'weight'}
+                    onChange={handlerOptionChange}
+                  />
+                  <label htmlFor='weight' className={styles.labelsOrder}>
+                    WEIGHT
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div className={styles.orderBy}>
+                  <input
+                    type='radio'
+                    name='orderSort'
+                    id='attack'
+                    value='attack'
+                    checked={sortOrder === 'attack'}
+                    onChange={handlerOptionChange}
+                  />
+                  <label htmlFor='attack' className={styles.labelsOrder}>
+                    ATTACK
+                  </label>
+                </div>
+                <div className={styles.orderBy}>
+                  <input
+                    type='radio'
+                    name='orderSort'
+                    id='defense'
+                    value='defense'
+                    checked={sortOrder === 'defense'}
+                    onChange={handlerOptionChange}
+                  />
+                  <label htmlFor='defense' className={styles.labelsOrder}>
+                    DEFENSE
+                  </label>
+                </div>
+                <div className={styles.orderBy}>
+                  <input
+                    type='radio'
+                    name='orderSort'
+                    id='speed'
+                    value='speed'
+                    checked={sortOrder === 'speed'}
+                    onChange={handlerOptionChange}
+                  />
+                  <label htmlFor='speed' className={styles.labelsOrder}>
+                    SPEED
+                  </label>
+                </div>
+                <div className={styles.orderBy}>
+                  <input
+                    type='radio'
+                    name='orderSort'
+                    id='hp'
+                    value='hp'
+                    checked={sortOrder === 'hp'}
+                    onChange={handlerOptionChange}
+                  />
+                  <label htmlFor='hp' className={styles.labelsOrder}>
+                    HEALT
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                className={styles.buttonOrder}
+                value='ascending'
+                onClick={handlerOrderName}
+              >
+                Ascending
+              </button>
+              <button
+                className={styles.buttonOrder}
+                value='descending'
+                onClick={handlerOrderName}
+              >
+                Descending
+              </button>
+            </div>
+          </div>
           <img src={desending} alt='desending' className={styles.imgOrder2} />
           <img
             src={imgClose}

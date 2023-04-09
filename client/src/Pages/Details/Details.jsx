@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   deletePokemon,
-  getAllPokemons,
   getPokemonDetails,
 } from '../../redux/actions/actions.js';
 import styles from './Details.module.css';
@@ -51,7 +50,7 @@ const Details = () => {
                     src={deleteImg}
                     alt='delete'
                     className={styles.deleteImg}
-                    onClick={()=>handleDelete(pokemon.id)}
+                    onClick={() => handleDelete(pokemon.id)}
                   />
                 </div>
               ) : (
@@ -131,8 +130,8 @@ const Details = () => {
           <div className={styles.containerInf}>
             {/* Container de INFO */}
             <div className={styles.containerDetails}>
-              <h4>HEIGHT: {pokemon.height}</h4>
-              <h4>WEIGHT: {pokemon.weight}</h4>
+              <h4>HEIGHT: {pokemon.height/10} mts</h4>
+              <h4>WEIGHT: {pokemon.weight/10} kg</h4>
               <div className={styles.containerT}>
                 {pokemon.types &&
                   pokemon.types.map((poke) => (
