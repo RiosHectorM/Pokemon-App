@@ -26,16 +26,14 @@ const Home = () => {
 
   return (
     <div className={styles.containerBody}>
-      {currentPokemons.length ? (
-        <div className={styles.searchFilters}>
-          <SearchBar />
-          <Filters
-            setCurrentPage={setCurrentPage}
-            setOrder={setOrder}
-            order={order}
-          />
-        </div>
-      ) : null}
+      <div className={styles.searchFilters}>
+        <SearchBar />
+        <Filters
+          setCurrentPage={setCurrentPage}
+          setOrder={setOrder}
+          order={order}
+        />
+      </div>
       <div className={styles.column}>
         <Pagination
           pokemonsPerPage={pokemonsPerPage}

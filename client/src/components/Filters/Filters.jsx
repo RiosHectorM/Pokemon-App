@@ -38,7 +38,7 @@ const Filters = ({ setCurrentPage, setOrder, order }) => {
   };
   const handlerFilterTypes = (e) => {
     dispatch(filterByTypes(e.target.value));
-    dispatch(orderName(order));
+    dispatch(orderName(order, sortOrder));
     setCurrentPage(0);
     setShowFilters(false);
   };
