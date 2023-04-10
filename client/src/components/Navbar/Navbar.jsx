@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import logo from '../../assets/logo.png';
 import { useDispatch } from 'react-redux';
@@ -24,16 +24,16 @@ const Navbar = () => {
           <p>HOME</p>
         </div>
       </Link>
-      <NavLink to='/create' style={{ textDecoration: 'none', color: 'black' }}>
+      <Link to='/create' style={{ textDecoration: 'none', color: 'black' }}>
         <div className={styles.links}>
           <p>CREATE POKEMON</p>
         </div>
-      </NavLink>
-      <NavLink to='/play' style={{ textDecoration: 'none', color: 'black' }}>
+      </Link>
+      <Link to='/play' style={{ textDecoration: 'none', color: 'black' }}>
         <div className={styles.links}>
           <p>WHO IS THAT POKEMON</p>
         </div>
-      </NavLink>
+      </Link>
 
     </nav>
   );

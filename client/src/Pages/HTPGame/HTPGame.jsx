@@ -96,6 +96,7 @@ const HTPGame = () => {
               showOptions &&
               arrayRandom.map((poke) => (
                 <button
+                  key={poke.name}
                   value={poke.name}
                   onClick={handleClickValues}
                   className={styles.buttonName}
