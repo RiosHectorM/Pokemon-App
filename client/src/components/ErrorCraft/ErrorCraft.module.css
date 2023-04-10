@@ -1,8 +1,7 @@
-
-.crafting{
+.crafting {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   width: 90vw;
   height: auto;
   z-index: 20;
@@ -18,18 +17,19 @@
   -webkit-backdrop-filter: blur(6px);
   border: 3px solid rgb(255, 255, 255);
   color: white;
+  text-align: center;
 }
 
-.containerImgfail{
+.containerImgfail {
   display: flex;
   justify-content: center;
 }
 
-.dosContainers{
+.dosContainers {
   display: flex;
 }
 
-.imgFail{
+.imgFail {
   width: 60%;
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -39,12 +39,11 @@
   color: white;
 }
 
-.containerButtons{
+.containerButtons {
   display: flex;
   width: 100%;
   justify-content: space-around;
 }
-
 
 .buttons {
   background: red;
@@ -53,7 +52,7 @@
   padding-right: 10px;
   border-radius: 20px;
   font-size: 12px;
-  box-shadow:  inset 0 0 20px #000;
+  box-shadow: inset 0 0 20px #000;
   border: 1px solid #000;
   margin: 10px 0;
 }
@@ -83,4 +82,19 @@
     box-shadow: 10px 12px 14px 14px rgba(255, 255, 255, 0.6),
       -10px -15px 9px 10px rgba(0, 0, 0, 0.6);
   }
+}
+
+@media screen and (max-width: 700px) {
+  .crafting {
+    position: fixed;
+    width: 90vw;
+    height: 95vh;
+    top: 1vh;
+    left: 5vw;
+    font-size: 0.8em;
+  }
+  .imgFail {
+    width: 30%;
+  }
+
 }

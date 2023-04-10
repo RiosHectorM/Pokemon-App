@@ -32,6 +32,21 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+@media screen and (max-width: 700px) {
+  .card {
+    height: 150px;
+    width: 140px;
+  }
+  .imgPoke {
+    max-width: 140px;
+    height: 140px;
+  }
+  .info {
+    top: 130px;
+    font-size: 0.5em;
+  }
+}
+
 .containerTypes {
   display: flex;
   flex-direction: row;
@@ -43,7 +58,7 @@
   width: 30px;
 }
 
-.imgAndName{
+.imgAndName {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +72,6 @@
 .card:hover .imgPoke {
   backdrop-filter: blur(20px);
 }
-
 
 /* Efecto cuadro de Texto */
 .card:hover .info {

@@ -10,6 +10,8 @@ import Filters from '../../components/Filters/Filters.jsx';
 const Home = () => {
   let allPokes = useSelector((state) => state.filteredPokemons);
 
+  let [toggle,setToggle] = useState(false)
+
   let [order, setOrder] = useState('');
   let [currentPage, setCurrentPage] = useState(0);
   let [currentPokemons, setCurrentPokemons] = useState([]);
@@ -32,6 +34,8 @@ const Home = () => {
           setCurrentPage={setCurrentPage}
           setOrder={setOrder}
           order={order}
+          toggle={toggle}
+          setToggle={setToggle}
         />
       </div>
       <div className={styles.column}>
@@ -53,6 +57,7 @@ const Home = () => {
                 name={pokemon.name}
                 image={pokemon.image}
                 types={pokemon.types}
+                toggle={toggle}
               />
             ))
           ) : (

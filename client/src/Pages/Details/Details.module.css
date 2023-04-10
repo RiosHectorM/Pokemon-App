@@ -17,7 +17,6 @@
 .containerEvo {
   display: flex;
   flex-direction: column;
-  width: auto;
   text-transform: uppercase;
   color: white;
   background: rgba(0, 0, 0, 0.8);
@@ -27,13 +26,32 @@
   -webkit-backdrop-filter: blur(6px);
   border: 10px double rgb(255, 255, 255);
   padding: 10px 20px 10px 20px;
-  border-radius: 0 80px 80px 0;
+  border-radius: 80px 0 0 50px;
   text-align: center;
-  animation: sliceINLeft 2s normal both;
+  animation: sliceINRight 2s normal both;
 }
+
 .evolutions {
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  max-width: 450px;
+}
+.evolutions::-webkit-scrollbar {
+  height: 8px;
+}
+
+.evolutions::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.evolutions::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.evolutions::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .evo {
@@ -149,10 +167,10 @@
   -webkit-backdrop-filter: blur(6px);
   border: 10px double rgb(255, 255, 255);
   padding: 30px 50px 30px 50px;
-  border-radius: 80px 0 0 80px;
+  border-radius: 0 80px 80px 0;
   text-align: center;
   min-width: 25%;
-  animation: sliceINRight 2s normal both;
+  animation: sliceINLeft 2s normal both;
 }
 
 @keyframes sliceINRight {

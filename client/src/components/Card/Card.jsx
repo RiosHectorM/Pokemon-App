@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './Card.module.css';
 import { IMAGES } from '../../constants/types.js';
 
-export default function Card({ id, name, image, types }) {
+export default function Card({ id, name, image, types,toggle }) {
   return (
     types && (
       <div
@@ -29,7 +29,7 @@ export default function Card({ id, name, image, types }) {
         </div>
 
         <Link to={`/pokemons/${id}`}>
-          {IMAGES[id] ? (
+          {IMAGES[id] && toggle ? (
             <img src={IMAGES[id]} alt={name} className={styles.imgPoke} />
           ) : (
             <img src={image} alt={name} className={styles.imgPoke} />

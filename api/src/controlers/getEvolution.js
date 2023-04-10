@@ -2,24 +2,43 @@ const axios = require('axios');
 
 const evolution = async (evoData) => {
   try {
-    let evoChain = [];
+    const apiPokeUrl = await axios.get(
+      'https://pokeapi.co/api/v2/pokemon/' + evoData.species.name
+    );
 
-    do {
-      const apiPokeUrl = await axios.get(
-        'https://pokeapi.co/api/v2/pokemon/' + evoData.species.name
-      );
-
-      let result = {
+    let evoChain = [
+      {
         name: evoData.species.name,
         img: apiPokeUrl.data.sprites.other['official-artwork'].front_default,
-      };
+      },
+    ];
 
-      evoChain.push(result);
+    let currentPokemon = evoData;
 
-      evoData = evoData['evolves_to'][0];
-      
-    } while (evoData && evoData.hasOwnProperty('evolves_to'));
+    if (!currentPokemon.evolves_to || currentPokemon.evolves_to.length === 0) {
+      return evoChain;
+    }
 
+    do {
+      for (const pokemonEvolucion of currentPokemon.evolves_to) {
+        const apiPokeUrl = await axios.get(
+          'https://pokeapi.co/api/v2/pokemon/' + pokemonEvolucion.species.name
+        );
+
+        let result = {
+          name: pokemonEvolucion.species.name,
+          img: apiPokeUrl.data.sprites.other['official-artwork'].front_default,
+        };
+
+        evoChain.push(result);
+
+        if (pokemonEvolucion.evolves_to.length) {
+          currentPokemon = pokemonEvolucion;
+        } else {
+          currentPokemon = null;
+        }
+      }
+    } while (currentPokemon);
     return evoChain;
   } catch (error) {
     console.error(error.message);

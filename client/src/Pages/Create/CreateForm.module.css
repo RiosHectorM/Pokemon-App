@@ -333,3 +333,41 @@
     transform: translate(0, 0) scale(1);
   }
 }
+
+@media screen and (max-width: 1180px) {
+  .stat {
+    width: 50%;
+    padding: 5px 10px;
+    justify-content: center;
+  }
+  .containerNameInput{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .container {
+    flex-direction: column;
+  }
+  .containerImage {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .checkOptions {
+    width: 174px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+  }
+  .imgTypes {
+    width: 40px;
+    height: 40px;
+    margin-right: 4px;
+  }
+  .stats{
+    font-size: 0.8em;
+  }
+  .stat{
+    justify-content: center;
+  }
+}

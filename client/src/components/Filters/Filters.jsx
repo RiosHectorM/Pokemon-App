@@ -14,18 +14,18 @@ import {
   restorePokemons,
 } from '../../redux/actions/actions.js';
 
-const Filters = ({ setCurrentPage, setOrder, order }) => {
+const Filters = ({ setCurrentPage, setOrder, order, toggle, setToggle }) => {
   const dispatch = useDispatch();
   const allTypes = useSelector((state) => state.allTypes);
 
   const [showFilters, setShowFilters] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
 
-  const [sortOrder, setSortOrder] = useState('name')
+  const [sortOrder, setSortOrder] = useState('name');
 
   const handlerOptionChange = (e) => {
-    setSortOrder(e.target.value)
-  }
+    setSortOrder(e.target.value);
+  };
 
   useEffect(() => {
     dispatch(getTypes());
@@ -66,6 +66,10 @@ const Filters = ({ setCurrentPage, setOrder, order }) => {
   };
   const closeOrderDiv = () => {
     setShowOrder(false);
+  };
+
+  const handlerAnimated = () => {
+    setToggle(!toggle);
   };
 
   return (
@@ -216,7 +220,7 @@ const Filters = ({ setCurrentPage, setOrder, order }) => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className={styles.buttonsAscDesc}>
               <button
                 className={styles.buttonOrder}
                 value='ascending'
@@ -248,6 +252,13 @@ const Filters = ({ setCurrentPage, setOrder, order }) => {
         className={styles.options}
       >
         RESET FILTERS
+      </button>
+      <button
+        type='button'
+        onClick={handlerAnimated}
+        className={styles.options}
+      >
+        {toggle ? 'STATIC POKEMONS' : 'ANIMATED POKEMONS'}
       </button>
     </div>
   );

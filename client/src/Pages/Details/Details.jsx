@@ -41,35 +41,12 @@ const Details = () => {
       {pokemon.id == id ? (
         <div className={styles.container} style={fondo}>
           <div className={styles.containerSup}>
-            {/* Contenedor Cadena de Evolucion */}
-            <div className={styles.containerEvo}>
-              {pokemon.created ? (
-                <div className={styles.containerDelete}>
-                  <h5>DELETE POKEMON </h5>
-                  <img
-                    src={deleteImg}
-                    alt='delete'
-                    className={styles.deleteImg}
-                    onClick={() => handleDelete(pokemon.id)}
-                  />
-                </div>
-              ) : (
-                <h3>POKEMON FAMILY</h3>
-              )}
-              {pokemon.evolution ? (
-                <div className={styles.evolutions}>
-                  {pokemon.evolution.map((chain) => (
-                    <div key={chain.name} className={styles.evo}>
-                      <img
-                        src={chain.img}
-                        alt={chain.name}
-                        className={styles.imgChain}
-                      />
-                      <p>{chain.name}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
+            {/* Container TYPES */}
+            <div
+              className={styles.containerNameTypes}
+              style={{ transform: 'translate(0)' }}
+            >
+              <h1>{pokemon.name}</h1>
             </div>
             {/* Contenedor de STATS */}
             <div className={styles.progress}>
@@ -130,8 +107,8 @@ const Details = () => {
           <div className={styles.containerInf}>
             {/* Container de INFO */}
             <div className={styles.containerDetails}>
-              <h4>HEIGHT: {pokemon.height/10} mts</h4>
-              <h4>WEIGHT: {pokemon.weight/10} kg</h4>
+              <h4>HEIGHT: {pokemon.height / 10} mts</h4>
+              <h4>WEIGHT: {pokemon.weight / 10} kg</h4>
               <div className={styles.containerT}>
                 {pokemon.types &&
                   pokemon.types.map((poke) => (
@@ -157,12 +134,36 @@ const Details = () => {
                 />
               ) : null}
             </div>
-            {/* Container TYPES */}
-            <div
-              className={styles.containerNameTypes}
-              style={{ transform: 'translate(0)' }}
-            >
-              <h1>{pokemon.name}</h1>
+
+            {/* Contenedor Cadena de Evolucion */}
+            <div className={styles.containerEvo}>
+              {pokemon.created ? (
+                <div className={styles.containerDelete}>
+                  <h5>DELETE POKEMON </h5>
+                  <img
+                    src={deleteImg}
+                    alt='delete'
+                    className={styles.deleteImg}
+                    onClick={() => handleDelete(pokemon.id)}
+                  />
+                </div>
+              ) : (
+                <h3>POKEMON FAMILY</h3>
+              )}
+              {pokemon.evolution ? (
+                <div className={styles.evolutions}>
+                  {pokemon.evolution.map((chain) => (
+                    <div key={chain.name} className={styles.evo}>
+                      <img
+                        src={chain.img}
+                        alt={chain.name}
+                        className={styles.imgChain}
+                      />
+                      <p>{chain.name}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

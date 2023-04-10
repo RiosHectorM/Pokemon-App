@@ -116,7 +116,7 @@ const HTPGame = () => {
             <div className={styles.namesOptions}>
               <h3 className={styles.titleResult}>YOU WIN!!!</h3>
               <img src={win} alt='winImage' className={styles.imageResult} />
-              <div>
+              <div className={styles.namesOptionsPlayHome}>
                 <button
                   onClick={handleClickRandom}
                   className={styles.buttonName}
@@ -136,7 +136,7 @@ const HTPGame = () => {
             <div className={styles.namesOptions}>
               <h3 className={styles.titleResult}>LOSE</h3>
               <img src={lose} alt='loseImage' className={styles.imageResult} />
-              <div>
+              <div className={styles.namesOptionsPlayHome}>
                 <button
                   onClick={handleClickRandom}
                   className={styles.buttonName}

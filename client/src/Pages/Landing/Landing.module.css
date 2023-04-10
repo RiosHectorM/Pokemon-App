@@ -33,12 +33,22 @@
   height: 100%;
   background-image: url('../../assets/backgrounds/bg1.jpg');
   background-size: cover;
+  background-position: center;
   font-size: 20vw;
   text-align: center;
   color: #fff;
   line-height: 40vh;
   mix-blend-mode: multiply;
   letter-spacing: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .tittle {
+    font-size: 12vw;
+  }
+  .subtittle {
+    font-size: 3vw;
+  }
 }
 
 .subtittle {
@@ -100,7 +110,7 @@
   }
 }
 
-.imgLoader{
+.imgLoader {
   z-index: 10;
   display: flex;
   justify-content: center;

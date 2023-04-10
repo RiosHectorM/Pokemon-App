@@ -47,7 +47,7 @@
   animation: imgIN 2s normal both;
 }
 
-.center{
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,24 +59,24 @@
   filter: brightness(0);
 }
 
-.imageResult{
+.imageResult {
   height: 200px;
   width: 200px;
 }
 
-.titleResult{
+.titleResult {
   letter-spacing: 10px;
   text-transform: uppercase;
 }
 
-.titleImage{
+.titleImage {
   position: absolute;
   top: 0;
   letter-spacing: 10px;
   text-transform: uppercase;
 }
 
-.options{
+.options {
   display: flex;
   height: 80%;
   width: 45%;
@@ -91,18 +91,18 @@
   animation: imgIN 2s normal both;
 }
 
-.namesOptions{
+.namesOptions {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.buttonName{
+.buttonName {
   text-transform: uppercase;
   cursor: pointer;
   width: 200px;
-  height: 45px;
+  height: 38px;
   background: red;
   color: white;
   margin: 5px;
@@ -139,12 +139,90 @@
   }
 }
 
-
 @keyframes imgIN {
   0% {
     transform: translate(0, 0) scale(0);
   }
   100% {
     transform: translate(0, 0) scale(1);
+  }
+}
+
+
+@media screen and (max-width: 1170px) {
+  .main {
+    width: 90%;
+    height: 80%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .htp {
+    height: 40%;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+  }
+  .imageRandom {
+    height: 320px;
+    height: 300px;
+  }
+  .imageResult {
+    height: 220px;
+    width: 220px;
+  }
+  .options {
+    height: 40%;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .buttonName {
+    font-size: 0.8em;
+    width: 200px;
+    margin: 2px;
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .main {
+    width: 95%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .htp {
+    height: 50%;
+    width: 98%;
+    justify-content: center;
+    align-items: center;
+  }
+  .imageRandom {
+    height: 250px;
+  }
+  .imageResult {
+    height: 120px;
+    width: 120px;
+  }
+  .options {
+    height: 50%;
+    width: 98%;
+    justify-content: center;
+    align-items: center;
+  }
+  .buttonName {
+    font-size: 0.8em;
+    width: 200px;
+    margin: 2px;
+    flex-direction: row;
+  }
+  .namesOptionsPlayHome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

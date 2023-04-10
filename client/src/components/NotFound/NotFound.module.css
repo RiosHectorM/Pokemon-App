@@ -15,3 +15,14 @@
   color: white;
   padding: 20px;
 }
+
+@media screen and (max-width: 820px) {
+  .container {
+  margin-top: 0px;
+  width: 90%;
+  text-align: center;
+  }
+  .container img{
+  width: 100%;
+  }
+}
