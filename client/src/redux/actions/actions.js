@@ -11,9 +11,11 @@ import {
   DELETE_POKEMON,
 } from './types.js';
 
+const URLDIR = `pokemon-app-production-d853.up.railway.app`;
+
 export const getAllPokemons = () => {
   return async function (dispatch) {
-    return fetch('http://localhost:3001/pokemons')
+    return fetch(`${URLDIR}/pokemons`)
       .then((response) => response.json())
       .then((json) =>
         dispatch({
@@ -26,7 +28,7 @@ export const getAllPokemons = () => {
 
 export const getPokemonDetails = (id) => {
   return async function (dispatch) {
-    return fetch(`http://localhost:3001/pokemons/${id}`)
+    return fetch(`${URLDIR}/pokemons/${id}`)
       .then((response) => response.json())
       .then((json) =>
         dispatch({
@@ -39,7 +41,7 @@ export const getPokemonDetails = (id) => {
 
 export const getTypes = () => {
   return async function (dispatch) {
-    return fetch(`http://localhost:3001/types`)
+    return fetch(`${URLDIR}/pokemons/types`)
       .then((response) => response.json())
       .then((json) =>
         dispatch({
@@ -64,7 +66,7 @@ export const postPokemon = (values) => {
     created: true,
   };
   return async function (dispatch) {
-    return fetch('http://localhost:3001/pokemons', {
+    return fetch(`${URLDIR}/pokemons`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(input),
@@ -83,7 +85,7 @@ export const postPokemon = (values) => {
 export const deletePokemon = (id) => {
   return async (dispatch) => {
     try {
-      return fetch(`http://localhost:3001/pokemons/delete/${id}`, {
+      return fetch(`${URLDIR}/pokemons/delete/${id}`, {
         method: 'DELETE',
       })
         .then((response) => response.json())
@@ -102,7 +104,7 @@ export const deletePokemon = (id) => {
 
 export const searchByName = (name) => {
   return async function (dispatch) {
-    return fetch(`http://localhost:3001/pokemons?name=${name}`)
+    return fetch(`${URLDIR}/pokemons?name=${name}`)
       .then((response) => response.json())
       .then((json) => {
         dispatch({
