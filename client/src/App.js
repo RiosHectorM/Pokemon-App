@@ -9,10 +9,11 @@ import Details from './Pages/Details/Details';
 import CreateForm from './Pages/Create/CreateForm.jsx';
 import HTPGame from './Pages/HTPGame/HTPGame';
 
-import './App.css'
+import './App.css';
+import Error from './components/Error/Error';
 
 function App() {
-  let location = useLocation()
+  let location = useLocation();
   return (
     <div className='mainContainer'>
       <div>{location.pathname !== '/' && <Navbar />}</div>
@@ -22,7 +23,7 @@ function App() {
         <Route path='/pokemons/:id' element={<Details />} />
         <Route path='/create' element={<CreateForm />} />
         <Route path='/play' element={<HTPGame />} />
-        <Route path='*' element={<fourHundredFour />} />
+        <Route path='*' element={<Error />} />
       </Routes>
     </div>
   );

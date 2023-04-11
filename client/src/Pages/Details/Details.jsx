@@ -48,6 +48,38 @@ const Details = () => {
             >
               <h1>{pokemon.name}</h1>
             </div>
+            {/* Container IMAGEN */}
+            <div className={styles.imageMain}>
+              {pokemon.image ? (
+                <img
+                  src={pokemon.image}
+                  alt='pokemon'
+                  loading='lazy'
+                  className={styles.imgPoke}
+                />
+              ) : null}
+            </div>
+            {/* Container de INFO */}
+            <div className={styles.containerDetails}>
+              <h4>HEIGHT: {pokemon.height / 10} mts</h4>
+              <h4>WEIGHT: {pokemon.weight / 10} kg</h4>
+              <div className={styles.containerT}>
+                {pokemon.types &&
+                  pokemon.types.map((poke) => (
+                    <div className={styles.containerTypes} key={poke.name}>
+                      <img
+                        src={IMGTYPES[poke.name]}
+                        alt={poke.name}
+                        className={styles.typesImg}
+                      />
+                      <h4>{poke.name}</h4>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.containerInf}>
             {/* Contenedor de STATS */}
             <div className={styles.progress}>
               <div className={styles.stats}>
@@ -102,37 +134,6 @@ const Details = () => {
                 ></div>
                 <h5>{pokemon.speed}</h5>
               </div>
-            </div>
-          </div>
-          <div className={styles.containerInf}>
-            {/* Container de INFO */}
-            <div className={styles.containerDetails}>
-              <h4>HEIGHT: {pokemon.height / 10} mts</h4>
-              <h4>WEIGHT: {pokemon.weight / 10} kg</h4>
-              <div className={styles.containerT}>
-                {pokemon.types &&
-                  pokemon.types.map((poke) => (
-                    <div className={styles.containerTypes} key={poke.name}>
-                      <img
-                        src={IMGTYPES[poke.name]}
-                        alt={poke.name}
-                        className={styles.typesImg}
-                      />
-                      <h4>{poke.name}</h4>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            {/* Container IMAGEN */}
-            <div>
-              {pokemon.image ? (
-                <img
-                  src={pokemon.image}
-                  alt='pokemon'
-                  loading='lazy'
-                  className={styles.imgPoke}
-                />
-              ) : null}
             </div>
 
             {/* Contenedor Cadena de Evolucion */}
