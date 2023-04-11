@@ -11,10 +11,11 @@ import {
   DELETE_POKEMON,
 } from './types.js';
 
-const URLDIR = `pokemon-app-production-d853.up.railway.app`;
+const URLDIR = 'https://pokemon-app-production-d853.up.railway.app';
 
 export const getAllPokemons = () => {
   return async function (dispatch) {
+    console.log(URLDIR);
     return fetch(`${URLDIR}/pokemons`)
       .then((response) => response.json())
       .then((json) =>
