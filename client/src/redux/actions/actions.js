@@ -12,6 +12,7 @@ import {
 } from './types.js';
 
 const URLDIR = 'https://pokemon-app-production-d853.up.railway.app';
+//const URLDIR = 'http://localhost:3001';
 
 export const getAllPokemons = () => {
   return async function (dispatch) {
@@ -42,7 +43,7 @@ export const getPokemonDetails = (id) => {
 
 export const getTypes = () => {
   return async function (dispatch) {
-    return fetch(`${URLDIR}/pokemons/types`)
+    return fetch(`${URLDIR}/types`)
       .then((response) => response.json())
       .then((json) =>
         dispatch({
