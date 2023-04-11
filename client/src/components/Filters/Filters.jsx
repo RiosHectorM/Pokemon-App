@@ -33,7 +33,7 @@ const Filters = ({ setCurrentPage, setOrder, order, toggle, setToggle }) => {
 
   const handlerAllPokemons = () => {
     dispatch(restorePokemons());
-    //await dispatch(orderName(order));
+    //dispatch(orderName(order, sortOrder));
     setCurrentPage(0);
   };
   const handlerFilterTypes = (e) => {
@@ -44,7 +44,7 @@ const Filters = ({ setCurrentPage, setOrder, order, toggle, setToggle }) => {
   };
   const handlerCreated = () => {
     dispatch(filterPokeCreated('created'));
-    dispatch(orderName(order));
+    dispatch(orderName(order, sortOrder));
     setCurrentPage(0);
     setShowFilters(false);
   };
@@ -75,7 +75,7 @@ const Filters = ({ setCurrentPage, setOrder, order, toggle, setToggle }) => {
   return (
     <div className={styles.container}>
       <div onClick={showFiltersDiv}>
-        <p className={styles.options}>FILTER BY TYPE</p>{' '}
+        <p className={styles.options}>FILTER</p>{' '}
       </div>
       {showFilters && (
         <div className={styles.containerFloatTypes}>
@@ -116,7 +116,7 @@ const Filters = ({ setCurrentPage, setOrder, order, toggle, setToggle }) => {
         </div>
       )}
       <div onClick={showOrderDiv}>
-        <p className={styles.options}>ORDER BY NAME</p>{' '}
+        <p className={styles.options}>ORDER</p>{' '}
       </div>
       {showOrder && (
         <div className={styles.containerFloat}>
@@ -251,7 +251,7 @@ const Filters = ({ setCurrentPage, setOrder, order, toggle, setToggle }) => {
         onClick={handlerAllPokemons}
         className={styles.options}
       >
-        RESET FILTERS
+        RESET POKEMONS
       </button>
       <button
         type='button'
