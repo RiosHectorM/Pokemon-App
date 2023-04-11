@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const HTPGame = () => {
-  const allPokes = useSelector((state) => state.filteredPokemons);
+  const allPokes = useSelector((state) => state.pokemons);
   const navigate = useNavigate();
 
   let [showPlay, setShowPlay] = useState(true);

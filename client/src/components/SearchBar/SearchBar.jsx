@@ -27,11 +27,15 @@ const SearchBar = () => {
 
   async function handlerSubmit(e) {
     e.preventDefault();
-    setLoad(true);
-    await dispatch(searchByName(name));
-    setLoad(false);
-    setName('');
-    setShowSearch(false);
+    if (name) {
+      setLoad(true);
+      await dispatch(searchByName(name));
+      setLoad(false);
+      setName('');
+      setShowSearch(false);
+    } else {
+      setError(true);
+    }
   }
 
   const showSearchDiv = () => {
