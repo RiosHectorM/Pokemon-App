@@ -35,6 +35,7 @@ const Create = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
+
     setError(
       validations({
         ...input,
@@ -114,6 +115,14 @@ const Create = () => {
     });
   };
 
+  const handleInputUrlImage = (e) => {
+    setImage(e.target.value);
+    setInput({
+      ...input,
+      image: e.target.value,
+    });
+  };
+
   return (
     <div className={styles.mainContainer}>
       {crafting ? <PokeCraft /> : null}
@@ -123,7 +132,11 @@ const Create = () => {
       <div className={styles.container}>
         <div className={styles.containerImage}>
           <div className={styles.containerNewImage}>
-            <img src={imgNewPoke} alt='poke' className={styles.imgNewPoke} />
+            <img
+              src={imgNewPoke}
+              alt='PokemonImage'
+              className={styles.imgNewPoke}
+            />
           </div>
           <div className={styles.containerMiniatures}>
             {NEWPOKES.map((poke) => (
@@ -136,6 +149,14 @@ const Create = () => {
               />
             ))}
           </div>
+          <input
+            type='text'
+            name='imageURL'
+            id='imageURL'
+            placeholder={'Enter IMAGE URL'}
+            className={styles.nameInput}
+            onChange={handleInputUrlImage}
+          />
         </div>
 
         <div className={styles.containerData}>

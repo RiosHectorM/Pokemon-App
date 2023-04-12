@@ -139,13 +139,15 @@ const Details = () => {
             {/* Contenedor Cadena de Evolucion */}
             <div className={styles.containerEvo}>
               {pokemon.created ? (
-                <div className={styles.containerDelete}>
+                <div
+                  className={styles.containerDelete}
+                  onClick={() => handleDelete(pokemon.id)}
+                >
                   <h5>DELETE POKEMON </h5>
                   <img
                     src={deleteImg}
                     alt='delete'
                     className={styles.deleteImg}
-                    onClick={() => handleDelete(pokemon.id)}
                   />
                 </div>
               ) : (
