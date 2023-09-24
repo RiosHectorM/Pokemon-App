@@ -24,7 +24,7 @@ const pokeNameUrl = async (pokeArray, pokeCant, resultApi) => {
 const getPokeApi = async () => {
   try {
     let pokeArray = [];
-    const pokeCant = 240;
+    const pokeCant = 100;
     let resultApi = await pokeLoad('https://pokeapi.co/api/v2/pokemon');
 
     pokeArray = await pokeNameUrl(pokeArray, pokeCant, resultApi);
