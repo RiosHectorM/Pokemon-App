@@ -17,6 +17,8 @@ const sequelize = new Sequelize(DB_DEPLOY, {
       require: true, // Habilita SSL
       rejectUnauthorized: false, // Permite conexiones a bases de datos no verificadas (no recomendado en producción)
     },
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   },
 });
 

@@ -11,7 +11,7 @@ import {
   DELETE_POKEMON,
 } from './types.js';
 
-const URLDIR = 'https://master--teal-pithivier-e22bab.netlify.app/';
+const URLDIR = 'https://pokebackend-oorz.onrender.com';
 //const URLDIR = 'http://localhost:3001';
 
 export const getAllPokemons = () => {
