@@ -82,11 +82,10 @@ router.post('/', async (req, res) => {
     req.body;
 
   name = name.toLowerCase();
-  //Valida que no exista un pokemon personalizado con el mismo nombre
+  //Existe?
   const exists = await Pokemon.findOne({ where: { name: name } });
   if (exists) return res.status(400).send(null);
 
-  //superadas las validaciones crea el nuevo pokemon personalizado
   try {
     const newPoke = await Pokemon.create({
       name: name,
