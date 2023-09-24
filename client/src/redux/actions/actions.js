@@ -11,7 +11,7 @@ import {
   DELETE_POKEMON,
 } from './types.js';
 
-const URLDIR = 'https://pokemon-app-production-d853.up.railway.app';
+const URLDIR = 'https://master--teal-pithivier-e22bab.netlify.app/';
 //const URLDIR = 'http://localhost:3001';
 
 export const getAllPokemons = () => {
